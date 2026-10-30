@@ -1,0 +1,78 @@
+# Registry seed v0 — stub for T0.5
+# IMPORTANT: Every entry must be verified by the T0.5 script before it feeds metrics.
+# mapping_confidence values: verified | declared | heuristic
+# Only "verified" mappings feed published metrics.
+#
+# Selection rule (to be finalized in preregistration.yaml before T0.9):
+# Top N by GitHub stars per category plus M random, as of the seed date.
+# Seed date: 2026-11-01 (first collection date).
+#
+# Format for each source entry:
+#   {source: github|npm|pypi|huggingface, key: <owner/repo|package|model-id>}
+
+schema_version: 1
+
+# ── Agent frameworks ──────────────────────────────────────────────────────────
+- entity_id: langgraph
+  display_name: LangGraph
+  category: agent-framework
+  status: active
+  sources:
+    - {source: github, key: langchain-ai/langgraph}
+    - {source: pypi,   key: langgraph}
+    - {source: npm,    key: "@langchain/langgraph"}
+  mapping_confidence: declared  # verify at T0.5
+
+- entity_id: crewai
+  display_name: CrewAI
+  category: agent-framework
+  status: active
+  sources:
+    - {source: github, key: crewAIInc/crewAI}
+    - {source: pypi,   key: crewai}
+  mapping_confidence: declared
+
+- entity_id: autogen
+  display_name: AutoGen
+  category: agent-framework
+  status: active
+  sources:
+    - {source: github, key: microsoft/autogen}
+    - {source: pypi,   key: pyautogen}
+  mapping_confidence: declared
+
+# ── LLM SDKs ─────────────────────────────────────────────────────────────────
+- entity_id: openai-python
+  display_name: OpenAI Python SDK
+  category: llm-sdk
+  status: active
+  sources:
+    - {source: github, key: openai/openai-python}
+    - {source: pypi,   key: openai}
+    - {source: npm,    key: openai}
+  mapping_confidence: declared
+
+- entity_id: anthropic-python
+  display_name: Anthropic Python SDK
+  category: llm-sdk
+  status: active
+  sources:
+    - {source: github, key: anthropics/anthropic-sdk-python}
+    - {source: pypi,   key: anthropic}
+  mapping_confidence: declared
+
+# ── MCP servers ───────────────────────────────────────────────────────────────
+# (populate further at T0.5)
+
+# ── Vector stores ─────────────────────────────────────────────────────────────
+- entity_id: chromadb
+  display_name: ChromaDB
+  category: vector-store
+  status: active
+  sources:
+    - {source: github, key: chroma-core/chroma}
+    - {source: pypi,   key: chromadb}
+  mapping_confidence: declared
+
+# ── Eval tools ────────────────────────────────────────────────────────────────
+# (populate further at T0.5)

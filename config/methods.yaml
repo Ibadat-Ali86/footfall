@@ -1,0 +1,68 @@
+method_version: m1.0
+
+# WHY: All parameters are in one versioned file so a change to any threshold
+# triggers a method_version bump, is logged in docs/CHANGELOG-methods.md,
+# and is evaluated separately in the backtest. Values below are [Assumption]
+# defaults — tune on the training span only, never on the test span.
+
+time:
+  week_start: monday
+  tz: UTC
+  min_days_per_week: 6        # require at least 6 of 7 daily values for a valid week
+  max_ffill_days: 2           # never forward-fill across a gap longer than 2 days
+
+volume:
+  W_min: 500                  # weekly download floor below which growth rates are not reported as phases
+
+attention:
+  half_life_days: 14          # HN story decay: 0.5^(d/14)
+  window_days: 28
+
+normalization:
+  min_group_size: 15          # groups smaller than this merge with the nearest age bucket
+  age_buckets_months: [6, 18] # [under 6 months] [6–18 months] [over 18 months]
+
+phases:
+  # Rules applied in order; first match wins.
+  breakout:
+    adoption_z_min: 1.0
+    g4_min_ln: 0.2231         # ln(1.25)
+  attention_ahead:
+    divergence_min: 1.0
+    adoption_z_max: 0.5
+  use_ahead:
+    divergence_max: -1.0
+    adoption_z_min: 0.5
+  fading:
+    adoption_z_max: -1.0
+    weeks: 4                  # must hold for 4 consecutive weeks
+  emerging:
+    max_age_months: 6
+  mainstream:
+    volume_quantile: 0.75
+    abs_g4_max: 0.1
+  plateau:
+    abs_g12_max: 0.1
+    weeks: 8
+
+anomaly:
+  star_burst:
+    min_daily_gain: 30        # N_min: minimum absolute gain to flag
+    mad_multiplier: 8         # k: baseline + k * MAD
+    baseline_days: 28
+  sampling:
+    max_stargazers: 100       # cap per burst window — privacy preserving
+    daily_call_budget: 300    # total GitHub stargazer API calls per day
+    min_sample_for_flag: 30   # minimum sample size to report low_quality_share
+  unusual:
+    low_quality_share_min: 0.5   # share of low-quality accounts to mark as unusual
+    account_age_days_max: 30     # accounts younger than this count as low-quality
+    hn_explained_hours: 48       # HN story within this window sets explained_by
+  download_step:
+    robust_z_min: 4           # robust z-score threshold for a download step anomaly
+    baseline_weeks: 26
+    corroboration_weeks: 2    # require no matching star/HN activity within this window
+
+model:
+  enabled: false              # true only if H1 passes gate and calibration passes
+  calibration_method: isotonic_regression

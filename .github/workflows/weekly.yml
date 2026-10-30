@@ -1,0 +1,48 @@
+name: weekly
+
+# WHY: Monday 06:00 UTC — features and backtest after the weekend's data is settled
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch: {}
+
+permissions: {}
+
+concurrency:
+  group: weekly
+  cancel-in-progress: false
+
+jobs:
+  features-and-backtest:
+    name: Features, Phases, Ledger & Backtest
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: pipeline
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+        with:
+          persist-credentials: false
+
+      - uses: astral-sh/setup-uv@f0ec1fc3b38f5e7cd731bb6ce540c5af426746bb  # v5.4.0
+
+      - name: Install (frozen lockfile)
+        run: uv sync --frozen
+
+      - name: Compute features and phases
+        run: uv run footfall features
+
+      - name: Run backtest and append ledger
+        run: uv run footfall backtest
+
+      - name: Open issue on failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create \
+            --title "weekly run failed $(date -u +%Y-%m-%d)" \
+            --body "Run: ${{ github.run_id }}" \
+            --label "pipeline-failure"

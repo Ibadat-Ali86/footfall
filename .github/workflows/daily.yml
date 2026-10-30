@@ -1,0 +1,60 @@
+name: daily
+
+# WHY: After 03:00 UTC so npm data for the previous day is processed
+# (npm data is available after UTC midnight). Manual dispatch for reruns.
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch: {}
+
+# WHY: No default permissions — each job declares exactly what it needs
+permissions: {}
+
+# WHY: cancel-in-progress: false — a partial data run is worse than a queued one
+concurrency:
+  group: daily
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    name: Collect and Publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: pipeline        # required reviewers and secrets live here
+    permissions:
+      contents: read
+      issues: write              # only to open a failure issue
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+        with:
+          persist-credentials: false
+
+      - uses: astral-sh/setup-uv@f0ec1fc3b38f5e7cd731bb6ce540c5af426746bb  # v5.4.0
+
+      - name: Install (frozen lockfile)
+        run: uv sync --frozen
+
+      - name: Collect snapshots
+        env:
+          # WHY: Fine-grained read-only token for public repo metadata only (threat #4)
+          GITHUB_READONLY_TOKEN: ${{ secrets.GITHUB_READONLY_TOKEN }}
+        run: uv run footfall collect --date yesterday
+
+      - name: Validate data quality
+        run: uv run footfall validate
+
+      - name: Publish to footfall-data
+        env:
+          # WHY: Write access to footfall-data only — not the code repo (threat #7)
+          DATA_REPO_KEY: ${{ secrets.DATA_REPO_DEPLOY_KEY }}
+        run: uv run footfall publish
+
+      - name: Open issue on failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create \
+            --title "daily run failed $(date -u +%Y-%m-%d)" \
+            --body "Run: ${{ github.run_id }} | See logs: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --label "pipeline-failure"

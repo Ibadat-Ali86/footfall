@@ -1,0 +1,63 @@
+# .gitignore — Python / uv project
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.venv/
+venv/
+
+# uv
+.uv/
+
+# Testing
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+.hypothesis/
+
+# Mypy
+.mypy_cache/
+.dmypy.json
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# DuckDB
+*.duckdb
+*.duckdb.wal
+
+# Parquet intermediate files (raw snapshots live in footfall-data repo)
+data/
+*.parquet
+
+# Jupyter
+*.ipynb_checkpoints/
+.jupyter/
+
+# Secrets (belt-and-suspenders; gitleaks is the real defence)
+.env
+.env.*
+*.pem
+*.key
+*_secret*
+*_token*
+
+# Site build output
+site/dist/
+site/_site/
+site/.cache/
+
+# Phase0 outputs (notebooks are in repo; large data files go to footfall-data)
+phase0/data/
+phase0/outputs/

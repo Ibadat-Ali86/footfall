@@ -1,0 +1,37 @@
+# WHY: Only hosts in this file may be contacted by any collector.
+# Reject redirects to unlisted hosts. This is the SSRF defence (threat #3).
+# Add new hosts only via a reviewed PR flagged for human inspection.
+
+allowed_hosts:
+  github_graphql: "https://api.github.com/graphql"
+  github_rest: "https://api.github.com"
+  npm_downloads: "https://api.npmjs.org"
+  pypi_stats: "https://pypistats.org/api"
+  hugging_face: "https://huggingface.co/api"
+  hacker_news: "https://hn.algolia.com/api/v1"
+
+# HTTP client defaults — applied to every collector via the shared base class.
+http:
+  connect_timeout_s: 10
+  read_timeout_s: 30
+  max_retries: 4
+  backoff_base_s: 1.0         # exponential backoff; actual = base * 2^attempt + jitter
+  jitter_max_s: 2.0
+  max_response_bytes: 5_242_880  # 5 MB hard cap; refuse larger responses
+
+user_agent: "footfall/0.1 (https://github.com/Ibadat-Ali86/footfall; ibadcodes@gmail.com)"
+
+# Per-source rate-limiting hints (informational; enforced in each collector).
+rate_limits:
+  github_graphql:
+    note: "5000 points/hour for authenticated; Actions token may differ — verify at T0.6"
+  npm_downloads:
+    note: "No documented limit; use bulk endpoint (≤128 packages, ≤365 days)"
+  pypi_stats:
+    max_rps: 1
+    note: "IP-based; do not bulk-download history; use BigQuery for backfill"
+  hugging_face:
+    note: "Rate limit details unknown — verify at T0.6"
+  hacker_news:
+    max_per_hour_per_ip: 10000
+    attribution: "Search by Algolia"
