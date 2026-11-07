@@ -1,7 +1,7 @@
 # Hypothesis H1 Evaluation Report (Task T0.9)
 
 **Pre-registration SHA-256:** `c81d8238578f88f5986cafb7013130ac219f335c56bf9c5f3f47d76a8baa7571`
-**Evaluation Date:** 2026-11-07T19:48:56.602405+00:00
+**Evaluation Date:** 2026-11-07T19:53:03.846808+00:00
 **Gate H1 Threshold:** Candidate beats best baseline by >= 0.05 margin, 95% CI > 0.
 **Status:** **PASSED**
 

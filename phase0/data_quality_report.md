@@ -1,6 +1,6 @@
 # Footfall Data Quality Report (Task T0.7)
 
-**Generated:** 2026-11-07T19:37:55.827649+00:00
+**Generated:** 2026-11-07T19:53:04.787905+00:00
 **Dataset:** `snapshots.parquet`
 **Rule Compliance:** "No truncation may go unflagged." (Section 7.1 & Section 16)
 

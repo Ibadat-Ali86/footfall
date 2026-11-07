@@ -131,3 +131,71 @@ def test_hackernews_collector_no_free_text_leakage() -> None:
         snapshot_json = s.model_dump_json()
         assert "Show HN" not in snapshot_json
         assert "Multi-Agent" not in snapshot_json
+
+
+@pytest.mark.contract
+@pytest.mark.asyncio
+async def test_collector_retries_with_backoff_on_429(respx_mock: Any) -> None:
+    """Section 7.1 Rule 3: Retry up to 4 times and obey Retry-After header."""
+    import httpx
+
+    collector = NpmCollector()
+    test_url = "https://api.npmjs.org/downloads/point/2026-11-01/test-pkg"
+
+    route = respx_mock.get(test_url)
+    route.side_effect = [
+        httpx.Response(429, headers={"Retry-After": "0.01"}),
+        httpx.Response(
+            200,
+            json={
+                "package": "test-pkg",
+                "downloads": 1234,
+                "start": "2026-11-01",
+                "end": "2026-11-01",
+            },
+        ),
+    ]
+
+    data = await collector.fetch_json(test_url)
+    assert data["downloads"] == 1234
+    assert route.call_count == 2
+
+
+@pytest.mark.contract
+@pytest.mark.asyncio
+async def test_collector_response_byte_cap(respx_mock: Any) -> None:
+    """Section 7.1 Rule 4: Cap response size (5 MB default). Refuse larger."""
+    import httpx
+
+    from footfall.collectors import ResponseSizeExceededError
+
+    collector = NpmCollector()
+    test_url = "https://api.npmjs.org/downloads/point/2026-11-01/oversized"
+
+    oversized_body = b"x" * (6 * 1024 * 1024)
+    respx_mock.get(test_url).mock(return_value=httpx.Response(200, content=oversized_body))
+
+    with pytest.raises(ResponseSizeExceededError, match="exceeds byte cap"):
+        await collector.fetch_json(test_url)
+
+
+@pytest.mark.contract
+@pytest.mark.asyncio
+async def test_collector_post_json_graphql(respx_mock: Any) -> None:
+    """GitHub collector uses fetch_post_json for batch GraphQL queries."""
+    import httpx
+
+    collector = GitHubCollector()
+    test_url = "https://api.github.com/graphql"
+
+    route = respx_mock.post(test_url)
+    route.mock(
+        return_value=httpx.Response(
+            200,
+            json={"data": {"viewer": {"login": "test-bot"}}},
+        )
+    )
+
+    data = await collector.fetch_post_json(test_url, {"query": "{ viewer { login } }"})
+    assert data["data"]["viewer"]["login"] == "test-bot"
+    assert route.call_count == 1

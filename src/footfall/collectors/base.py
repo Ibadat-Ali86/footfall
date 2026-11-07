@@ -10,6 +10,8 @@ Implements Section 7.1 of docs/BUILD.md:
 
 from __future__ import annotations
 
+import asyncio
+import random
 from abc import ABC, abstractmethod
 from datetime import UTC, datetime
 from enum import StrEnum
@@ -116,30 +118,129 @@ class BaseCollector(ABC):
         url: str,
         headers: dict[str, str] | None = None,
         params: dict[str, Any] | None = None,
+        max_retries: int = 4,
     ) -> dict[str, Any]:
-        """Perform verified GET request with host checks and response size guard."""
+        """Perform verified GET request with host checks, response size guard, and retries.
+
+        Section 7.1 Rule 3:
+        - Retry up to 4 times with exponential backoff and jitter.
+        - Obey Retry-After and treat HTTP 429 as a signal to slow down.
+        """
         self.validate_url(url)
 
         req_headers = {"User-Agent": self.user_agent}
         if headers:
             req_headers.update(headers)
 
-        response = await self.client.get(url, headers=req_headers, params=params)
-        response.raise_for_status()
+        last_err: Exception | None = None
 
-        # Enforce maximum response byte cap
-        if len(response.content) > self.max_response_bytes:
-            msg = (
-                f"Response from {url} exceeds byte cap "
-                f"({len(response.content)} > {self.max_response_bytes})"
-            )
-            raise ResponseSizeExceededError(msg)
+        for attempt in range(max_retries):
+            try:
+                response = await self.client.get(url, headers=req_headers, params=params)
 
-        data = response.json()
-        if not isinstance(data, dict):
-            msg = f"Expected JSON object response from {url}, got {type(data).__name__}"
-            raise ValueError(msg)
-        return data
+                # Obey Retry-After on rate limiting or gateway errors
+                if response.status_code in (429, 502, 503, 504):
+                    retry_after = response.headers.get("Retry-After")
+                    if retry_after:
+                        try:
+                            sleep_s = float(retry_after)
+                        except ValueError:
+                            sleep_s = (2**attempt) * 0.5 + random.uniform(0.05, 0.2)  # noqa: S311
+                    else:
+                        sleep_s = (2**attempt) * 0.5 + random.uniform(0.05, 0.2)  # noqa: S311
+
+                    if attempt < max_retries - 1:
+                        await asyncio.sleep(sleep_s)
+                        continue
+
+                response.raise_for_status()
+
+                # Enforce maximum response byte cap
+                if len(response.content) > self.max_response_bytes:
+                    msg = (
+                        f"Response from {url} exceeds byte cap "
+                        f"({len(response.content)} > {self.max_response_bytes})"
+                    )
+                    raise ResponseSizeExceededError(msg)
+
+                data = response.json()
+                if not isinstance(data, dict):
+                    msg = f"Expected JSON object response from {url}, got {type(data).__name__}"
+                    raise ValueError(msg)
+                return data
+
+            except (httpx.TransportError, httpx.HTTPStatusError) as exc:
+                last_err = exc
+                if attempt < max_retries - 1:
+                    sleep_s = (2**attempt) * 0.5 + random.uniform(0.05, 0.2)  # noqa: S311
+                    await asyncio.sleep(sleep_s)
+                else:
+                    raise
+
+        if last_err:
+            raise last_err
+        raise RuntimeError(f"Failed to fetch {url} after {max_retries} attempts")
+
+    async def fetch_post_json(
+        self,
+        url: str,
+        json_data: dict[str, Any],
+        headers: dict[str, str] | None = None,
+        max_retries: int = 4,
+    ) -> dict[str, Any]:
+        """Perform verified POST request with host checks and retries (e.g. GraphQL)."""
+        self.validate_url(url)
+
+        req_headers = {"User-Agent": self.user_agent, "Content-Type": "application/json"}
+        if headers:
+            req_headers.update(headers)
+
+        last_err: Exception | None = None
+
+        for attempt in range(max_retries):
+            try:
+                response = await self.client.post(url, headers=req_headers, json=json_data)
+
+                if response.status_code in (429, 502, 503, 504):
+                    retry_after = response.headers.get("Retry-After")
+                    if retry_after:
+                        try:
+                            sleep_s = float(retry_after)
+                        except ValueError:
+                            sleep_s = (2**attempt) * 0.5 + random.uniform(0.05, 0.2)  # noqa: S311
+                    else:
+                        sleep_s = (2**attempt) * 0.5 + random.uniform(0.05, 0.2)  # noqa: S311
+
+                    if attempt < max_retries - 1:
+                        await asyncio.sleep(sleep_s)
+                        continue
+
+                response.raise_for_status()
+
+                if len(response.content) > self.max_response_bytes:
+                    msg = (
+                        f"Response from {url} exceeds byte cap "
+                        f"({len(response.content)} > {self.max_response_bytes})"
+                    )
+                    raise ResponseSizeExceededError(msg)
+
+                data = response.json()
+                if not isinstance(data, dict):
+                    msg = f"Expected JSON object response from {url}, got {type(data).__name__}"
+                    raise ValueError(msg)
+                return data
+
+            except (httpx.TransportError, httpx.HTTPStatusError) as exc:
+                last_err = exc
+                if attempt < max_retries - 1:
+                    sleep_s = (2**attempt) * 0.5 + random.uniform(0.05, 0.2)  # noqa: S311
+                    await asyncio.sleep(sleep_s)
+                else:
+                    raise
+
+        if last_err:
+            raise last_err
+        raise RuntimeError(f"Failed to post to {url} after {max_retries} attempts")
 
     @abstractmethod
     async def collect_entity(

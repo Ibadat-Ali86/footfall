@@ -59,14 +59,11 @@ class GitHubCollector(BaseCollector):
         payload = {"query": query, "variables": {"owner": owner, "name": repo}}
 
         try:
-            self.validate_url(self.GRAPHQL_URL)
-            response = await self.client.post(
+            data = await self.fetch_post_json(
                 self.GRAPHQL_URL,
-                json=payload,
-                headers={"User-Agent": self.user_agent, **headers},
+                json_data=payload,
+                headers=headers,
             )
-            response.raise_for_status()
-            data = response.json()
             return self.parse_response(entity_id, source_key, obs_date, data)
         except Exception:
             return [
