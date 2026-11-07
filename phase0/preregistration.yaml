@@ -1,0 +1,72 @@
+# phase0/preregistration.yaml
+# Canonical pre-registration document for Footfall Phase 0 validation.
+# Must be committed before running any hypothesis evaluation code.
+# The Phase 0 final report header carries the SHA-256 hash of this file.
+
+version: 1
+committed_before_evaluation: true
+
+entities:
+  selection_rule: >-
+    Deterministic two-tier rule from docs/selection-rule.md:
+    Tier 1 stratified sampling by GitHub stars across 6 categories
+    (35 agent frameworks, 35 LLM SDKs, 35 MCP servers, 25 vector stores,
+    25 eval tools, 25 models); Tier 2 emerging tools with 100-2000 stars.
+  seed: 20261101
+  count: 180
+
+data:
+  npm_span: "2025-05-01..2026-11-01"
+  pypi_span: "2025-05-01..2026-11-01"
+  star_history: "Daily cumulative stargazers from snapshots and REST history; capped at 40k reach"
+  registry_version: "seed-v0"
+
+targets:
+  primary: "ln(W(t+4w) / W(t))"
+  secondary: "ln(W(t+8w) / W(t))"
+
+baselines:
+  - B0_no_change
+  - B1_trailing_4w_downloads
+  - B2_trailing_28d_stars
+  - B3_linear_B1_B2
+
+candidate:
+  models:
+    - ridge
+    - gradient_boosting
+  features:
+    - g4
+    - g12
+    - acc
+    - s28_rel
+    - s28_adj_rel
+    - attention_A
+    - divergence_D
+    - adoption_z
+    - attention_z
+
+splits:
+  scheme: walk_forward_expanding
+  origins: weekly
+  embargo_weeks: 4
+  min_train_weeks: 26
+
+metrics:
+  primary: mean_cross_sectional_spearman
+  secondary:
+    - top_decile_precision_breakout
+    - calibration_error
+  breakout_definition: "g_fwd >= ln(1.25) (~0.2231) and W(t) >= 500"
+
+uncertainty: block_bootstrap_over_origins
+bootstrap_samples: 1000
+block_size_weeks: 4
+
+gates:
+  H1: "candidate minus best baseline, 95% bootstrap CI excludes zero, margin >= 0.05"
+  H2: "share of reviewed star-burst flags not plausibly organic >= 0.70"
+  H3: "verified mapping share >= 0.95"
+
+tuning:
+  allowed_on: training_span_only
