@@ -276,27 +276,56 @@ def export(output_dir: str, snapshots: str, registry: str, as_of: str) -> None:
     )
 
 
-@main.command()
-@click.option("--host", default="127.0.0.1", help="Bind host address")
-@click.option("--port", default=8000, help="Port to listen on")
-@click.option("--exports-dir", default="exports/v1", help="Path to static exports directory")
-@click.option(
-    "--stdio", is_flag=True, default=False, help="Run over stdio transport instead of HTTP"
-)
-def serve(host: str, port: int, exports_dir: str, stdio: bool) -> None:
-    """Run the Footfall MCP server (Section 12.2)."""
+def _run_server(host: str, port: int, exports_dir: str, stdio: bool, transport: str) -> None:
+    """Internal runner for the Footfall MCP server."""
     import asyncio
 
     import uvicorn
 
     from footfall.server import create_mcp_server, create_streamable_app
 
-    if stdio:
-        server = create_mcp_server(exports_dir=exports_dir)
-        asyncio.run(server.run_stdio_async())
+    if stdio or transport.lower() == "stdio":
+        server_instance = create_mcp_server(exports_dir=exports_dir)
+        asyncio.run(server_instance.run_stdio_async())
     else:
         app = create_streamable_app(exports_dir=exports_dir)
         uvicorn.run(app, host=host, port=port)
+
+
+@main.command()
+@click.option("--host", default="127.0.0.1", help="Bind host address")
+@click.option("--port", default=8000, help="Port to listen on")
+@click.option("--exports-dir", default="exports/v1", help="Path to static exports directory")
+@click.option(
+    "--transport",
+    type=click.Choice(["sse", "stdio"], case_sensitive=False),
+    default="sse",
+    help="Transport protocol (sse or stdio)",
+)
+@click.option(
+    "--stdio", is_flag=True, default=False, help="Run over stdio transport instead of HTTP"
+)
+def serve(host: str, port: int, exports_dir: str, transport: str, stdio: bool) -> None:
+    """Run the Footfall MCP server (Section 12.2)."""
+    _run_server(host=host, port=port, exports_dir=exports_dir, stdio=stdio, transport=transport)
+
+
+@main.command()
+@click.option("--host", default="127.0.0.1", help="Bind host address")
+@click.option("--port", default=8000, help="Port to listen on")
+@click.option("--exports-dir", default="exports/v1", help="Path to static exports directory")
+@click.option(
+    "--transport",
+    type=click.Choice(["sse", "stdio"], case_sensitive=False),
+    default="sse",
+    help="Transport protocol (sse or stdio)",
+)
+@click.option(
+    "--stdio", is_flag=True, default=False, help="Run over stdio transport instead of HTTP"
+)
+def server(host: str, port: int, exports_dir: str, transport: str, stdio: bool) -> None:
+    """Run the Footfall MCP server (alias to 'serve')."""
+    _run_server(host=host, port=port, exports_dir=exports_dir, stdio=stdio, transport=transport)
 
 
 @main.command()
