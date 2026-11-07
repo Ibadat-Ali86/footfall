@@ -1,0 +1,207 @@
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": "Footfall AI Ecosystem Alerts",
+  "home_page_url": "https://footfall.dev",
+  "feed_url": "https://footfall.dev/feed.json",
+  "description": "Empirical lifecycle phase shifts, divergence surges, and anomaly alerts across AI developer frameworks and libraries.",
+  "items": [
+    {
+      "id": "alert-camel-ai-phase-2026-08-31",
+      "url": "https://footfall.dev/entity.html?id=camel-ai",
+      "title": "[phase_change] camel-ai",
+      "content_text": "camel-ai transitioned from mainstream to plateau.",
+      "date_published": "2026-08-31T06:00:00Z",
+      "tags": [
+        "phase_change",
+        "plateau"
+      ],
+      "_footfall": {
+        "entity_id": "camel-ai",
+        "previous_phase": "mainstream",
+        "current_phase": "plateau",
+        "divergence": 0.0,
+        "adoption_z": 0.0
+      }
+    },
+    {
+      "id": "alert-cline-phase-2026-08-31",
+      "url": "https://footfall.dev/entity.html?id=cline",
+      "title": "[phase_change] cline",
+      "content_text": "cline transitioned from mainstream to plateau.",
+      "date_published": "2026-08-31T06:00:00Z",
+      "tags": [
+        "phase_change",
+        "plateau"
+      ],
+      "_footfall": {
+        "entity_id": "cline",
+        "previous_phase": "mainstream",
+        "current_phase": "plateau",
+        "divergence": 0.0,
+        "adoption_z": 0.0
+      }
+    },
+    {
+      "id": "alert-datasets-phase-2026-08-31",
+      "url": "https://footfall.dev/entity.html?id=datasets",
+      "title": "[phase_change] datasets",
+      "content_text": "datasets transitioned from mainstream to plateau.",
+      "date_published": "2026-08-31T06:00:00Z",
+      "tags": [
+        "phase_change",
+        "plateau"
+      ],
+      "_footfall": {
+        "entity_id": "datasets",
+        "previous_phase": "mainstream",
+        "current_phase": "plateau",
+        "divergence": 0.0,
+        "adoption_z": 0.0
+      }
+    },
+    {
+      "id": "alert-dspy-phase-2026-08-31",
+      "url": "https://footfall.dev/entity.html?id=dspy",
+      "title": "[phase_change] dspy",
+      "content_text": "dspy transitioned from plateau to mainstream.",
+      "date_published": "2026-08-31T06:00:00Z",
+      "tags": [
+        "phase_change",
+        "mainstream"
+      ],
+      "_footfall": {
+        "entity_id": "dspy",
+        "previous_phase": "plateau",
+        "current_phase": "mainstream",
+        "divergence": 0.0,
+        "adoption_z": 0.0
+      }
+    },
+    {
+      "id": "alert-google-genai-phase-2026-08-31",
+      "url": "https://footfall.dev/entity.html?id=google-genai",
+      "title": "[phase_change] google-genai",
+      "content_text": "google-genai transitioned from plateau to mainstream.",
+      "date_published": "2026-08-31T06:00:00Z",
+      "tags": [
+        "phase_change",
+        "mainstream"
+      ],
+      "_footfall": {
+        "entity_id": "google-genai",
+        "previous_phase": "plateau",
+        "current_phase": "mainstream",
+        "divergence": 0.0,
+        "adoption_z": 0.0
+      }
+    },
+    {
+      "id": "alert-gpt-engineer-phase-2026-08-31",
+      "url": "https://footfall.dev/entity.html?id=gpt-engineer",
+      "title": "[phase_change] gpt-engineer",
+      "content_text": "gpt-engineer transitioned from mainstream to plateau.",
+      "date_published": "2026-08-31T06:00:00Z",
+      "tags": [
+        "phase_change",
+        "plateau"
+      ],
+      "_footfall": {
+        "entity_id": "gpt-engineer",
+        "previous_phase": "mainstream",
+        "current_phase": "plateau",
+        "divergence": 0.0,
+        "adoption_z": 0.0
+      }
+    },
+    {
+      "id": "alert-guardrails-phase-2026-08-31",
+      "url": "https://footfall.dev/entity.html?id=guardrails",
+      "title": "[phase_change] guardrails",
+      "content_text": "guardrails transitioned from mainstream to plateau.",
+      "date_published": "2026-08-31T06:00:00Z",
+      "tags": [
+        "phase_change",
+        "plateau"
+      ],
+      "_footfall": {
+        "entity_id": "guardrails",
+        "previous_phase": "mainstream",
+        "current_phase": "plateau",
+        "divergence": 0.0,
+        "adoption_z": 0.0
+      }
+    },
+    {
+      "id": "alert-helicone-phase-2026-08-31",
+      "url": "https://footfall.dev/entity.html?id=helicone",
+      "title": "[phase_change] helicone",
+      "content_text": "helicone transitioned from plateau to mainstream.",
+      "date_published": "2026-08-31T06:00:00Z",
+      "tags": [
+        "phase_change",
+        "mainstream"
+      ],
+      "_footfall": {
+        "entity_id": "helicone",
+        "previous_phase": "plateau",
+        "current_phase": "mainstream",
+        "divergence": 0.0,
+        "adoption_z": 0.0
+      }
+    },
+    {
+      "id": "alert-langflow-phase-2026-08-31",
+      "url": "https://footfall.dev/entity.html?id=langflow",
+      "title": "[phase_change] langflow",
+      "content_text": "langflow transitioned from plateau to mainstream.",
+      "date_published": "2026-08-31T06:00:00Z",
+      "tags": [
+        "phase_change",
+        "mainstream"
+      ],
+      "_footfall": {
+        "entity_id": "langflow",
+        "previous_phase": "plateau",
+        "current_phase": "mainstream",
+        "divergence": 0.0,
+        "adoption_z": 0.0
+      }
+    },
+    {
+      "id": "alert-qdrant-client-phase-2026-08-31",
+      "url": "https://footfall.dev/entity.html?id=qdrant-client",
+      "title": "[phase_change] qdrant-client",
+      "content_text": "qdrant-client transitioned from plateau to mainstream.",
+      "date_published": "2026-08-31T06:00:00Z",
+      "tags": [
+        "phase_change",
+        "mainstream"
+      ],
+      "_footfall": {
+        "entity_id": "qdrant-client",
+        "previous_phase": "plateau",
+        "current_phase": "mainstream",
+        "divergence": 0.0,
+        "adoption_z": 0.0
+      }
+    },
+    {
+      "id": "alert-sglang-phase-2026-08-31",
+      "url": "https://footfall.dev/entity.html?id=sglang",
+      "title": "[phase_change] sglang",
+      "content_text": "sglang transitioned from mainstream to plateau.",
+      "date_published": "2026-08-31T06:00:00Z",
+      "tags": [
+        "phase_change",
+        "plateau"
+      ],
+      "_footfall": {
+        "entity_id": "sglang",
+        "previous_phase": "mainstream",
+        "current_phase": "plateau",
+        "divergence": 0.0,
+        "adoption_z": 0.0
+      }
+    }
+  ]
+}
