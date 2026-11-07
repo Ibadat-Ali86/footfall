@@ -1,0 +1,13 @@
+{
+  "name": "footfall",
+  "displayName": "Footfall",
+  "summary": "Real developer adoption vs attention analytics for AI tools via read-only MCP.",
+  "website": "https://footfall.dev",
+  "repository": "https://github.com/Ibadat-Ali86/footfall",
+  "category": "Developer Tools",
+  "tags": ["developer-tools", "analytics", "adoption", "ai-ecosystem", "mcp-server"],
+  "transport": "streamable-http",
+  "endpoint": "https://mcp.footfall.dev/mcp",
+  "auth": "none",
+  "license": "Apache-2.0"
+}

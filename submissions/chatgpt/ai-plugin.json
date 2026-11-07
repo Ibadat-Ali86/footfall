@@ -1,0 +1,18 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Footfall Developer Tools",
+  "name_for_model": "footfall",
+  "description_for_human": "Compare real production adoption with hype for AI developer tools (agent frameworks, SDKs, vector databases, MCP servers).",
+  "description_for_model": "Access empirical developer adoption analytics for AI tools. Provides adoption z-scores, attention z-scores, divergence (D), and lifecycle phases based on verified package manager downloads and GitHub activity. All results are statistical measurements and do not constitute financial, investment, or purchasing advice.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://mcp.footfall.dev/openapi.yaml",
+    "is_user_authenticated": false
+  },
+  "logo_url": "https://footfall.dev/logo.png",
+  "contact_email": "support@footfall.dev",
+  "legal_info_url": "https://footfall.dev/about.html"
+}

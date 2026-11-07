@@ -1,0 +1,41 @@
+{
+  "$schema": "https://raw.githubusercontent.com/modelcontextprotocol/registry/main/schema/server.json",
+  "name": "footfall",
+  "title": "Footfall — AI Developer Tool Adoption Analytics",
+  "description": "Read-only MCP server providing empirical adoption analytics for AI developer tools (agent frameworks, SDKs, vector databases, MCP servers). Compares production package installs against social bookmarks.",
+  "vendor": "Footfall Research",
+  "homepage": "https://footfall.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ibadat-Ali86/footfall.git"
+  },
+  "license": "Apache-2.0",
+  "categories": [
+    "developer-tools",
+    "analytics",
+    "data-science"
+  ],
+  "transport": {
+    "type": "streamable-http",
+    "url": "https://mcp.footfall.dev/mcp"
+  },
+  "tools": [
+    {
+      "name": "footfall_compare",
+      "description": "Compare 2 to 6 tools side-by-side on adoption velocity, attention, and divergence."
+    },
+    {
+      "name": "footfall_trend",
+      "description": "Retrieve weekly time-series history of downloads and stars for a single tool."
+    },
+    {
+      "name": "footfall_find_rising",
+      "description": "Find accelerating AI tools filtered by category and lifecycle phase."
+    }
+  ],
+  "security": {
+    "readOnly": true,
+    "originValidation": true,
+    "authentication": "none"
+  }
+}

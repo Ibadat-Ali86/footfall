@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json.schemastore.org/mcp-server-manifest.json",
+  "name": "footfall",
+  "displayName": "Footfall",
+  "version": "1.0.0",
+  "description": "Empirical developer adoption analytics for AI tools. Separates real production usage from vanity metrics using verified package downloads and GitHub star velocity.",
+  "author": {
+    "name": "Footfall Research",
+    "email": "support@footfall.dev",
+    "url": "https://footfall.dev"
+  },
+  "license": "Apache-2.0",
+  "homepage": "https://footfall.dev",
+  "repository": "https://github.com/Ibadat-Ali86/footfall",
+  "documentation": "https://footfall.dev/methodology.html",
+  "privacyPolicyUrl": "https://footfall.dev/about.html#privacy",
+  "termsOfServiceUrl": "https://footfall.dev/about.html",
+  "supportUrl": "https://github.com/Ibadat-Ali86/footfall/issues",
+  "transport": {
+    "type": "streamable-http",
+    "url": "https://mcp.footfall.dev/mcp"
+  },
+  "authentication": {
+    "type": "none"
+  },
+  "security": {
+    "readOnly": true,
+    "originValidation": true,
+    "personalData": false,
+    "rateLimit": "60 requests/minute (burst 20)",
+    "responseByteCap": 51200
+  },
+  "tools": [
+    {
+      "name": "footfall_compare",
+      "title": "Compare AI Developer Tools",
+      "description": "Compares 2 to 6 AI developer tools on real adoption velocity versus attention. Returns adoption z-score, attention z-score, divergence, 4-week growth, and lifecycle phase. Results are empirical measurements, not advice.",
+      "annotations": {
+        "title": "Compare AI Developer Tools",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "entities": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 6,
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9@._/\\-]{1,100}$"
+            },
+            "description": "List of 2 to 6 entity identifiers (canonical ID, GitHub repo, or package name)."
+          },
+          "window_weeks": {
+            "type": "integer",
+            "minimum": 4,
+            "maximum": 52,
+            "default": 12,
+            "description": "Historical comparison window in weeks (4 to 52, default 12)."
+          }
+        },
+        "required": ["entities"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "footfall_trend",
+      "title": "Historical Adoption Trend",
+      "description": "Weekly time-series lookback of downloads, stars, and attention for a single AI developer tool. Results are empirical measurements, not advice.",
+      "annotations": {
+        "title": "Historical Adoption Trend",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "entity": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9@._/\\-]{1,100}$",
+            "description": "Target tool identifier (canonical ID, GitHub repo, or package name)."
+          },
+          "metrics": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["downloads", "stars", "attention"]
+            },
+            "description": "Metrics to include ('downloads', 'stars', 'attention'). Defaults to all."
+          },
+          "window_weeks": {
+            "type": "integer",
+            "minimum": 4,
+            "maximum": 104,
+            "default": 26,
+            "description": "Time series lookback window in weeks (4 to 104, default 26)."
+          }
+        },
+        "required": ["entity"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "footfall_find_rising",
+      "title": "Find Rising AI Developer Tools",
+      "description": "Lists AI developer tools matching a lifecycle phase such as breakout or use_ahead, ranked by adoption acceleration. Empirical measurements, not advice.",
+      "annotations": {
+        "title": "Find Rising AI Developer Tools",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string",
+            "default": "any",
+            "description": "Category filter (e.g. 'agent-framework', 'llm-sdk', 'vector-store', 'mcp-server', 'eval-tool', 'model', or 'any')."
+          },
+          "phase": {
+            "type": "string",
+            "enum": [
+              "insufficient_data",
+              "breakout",
+              "attention_ahead",
+              "use_ahead",
+              "fading",
+              "emerging",
+              "mainstream",
+              "plateau"
+            ],
+            "default": "breakout",
+            "description": "Target lifecycle phase to filter by."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20,
+            "default": 10,
+            "description": "Maximum number of tools to return (1 to 20)."
+          },
+          "min_weekly_downloads": {
+            "type": "number",
+            "default": 500.0,
+            "description": "Minimum weekly download volume threshold."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  ]
+}
