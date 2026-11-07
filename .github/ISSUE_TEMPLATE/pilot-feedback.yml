@@ -1,0 +1,44 @@
+name: Pilot User Feedback
+description: Submit feedback or feature suggestions during the pre-release pilot period
+title: "[Pilot]: "
+labels: ["pilot-feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for participating in the Footfall pilot evaluation!
+  - type: input
+    id: client
+    attributes:
+      label: Client / Platform
+      description: Which tool did you use to connect? (e.g. Claude Desktop, Cursor, ChatGPT, Footfall CLI)
+      placeholder: e.g. Claude Desktop 0.8
+    validations:
+      required: true
+  - type: textarea
+    id: queries
+    attributes:
+      label: Queries or Tools Tested
+      description: What prompts or tools did you run?
+      placeholder: e.g. footfall_compare(["langgraph", "qdrant-client"])
+    validations:
+      required: true
+  - type: dropdown
+    id: rating
+    attributes:
+      label: Overall Experience Rating
+      options:
+        - "5 - Excellent (Fast, accurate, clear caveats)"
+        - "4 - Good (Minor suggestions)"
+        - "3 - Average (Encountered ambiguities)"
+        - "2 - Poor (Tools failed or inaccurate)"
+        - "1 - Broken (Server errors or crashes)"
+    validations:
+      required: true
+  - type: textarea
+    id: feedback
+    attributes:
+      label: Observations and Feedback
+      description: What worked well? What felt inaccurate or confusing?
+    validations:
+      required: true

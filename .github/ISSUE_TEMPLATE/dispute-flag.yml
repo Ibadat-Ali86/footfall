@@ -1,0 +1,42 @@
+name: Maintainer Dispute or Flag Review
+description: Maintainer request to review or provide context for an unusual activity flag
+title: "[Dispute]: "
+labels: ["dispute", "maintainer-review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Maintainers have an explicit right of reply under Footfall governance.
+        Upon submission, the disputed flag is masked with a neutral notice during active review.
+  - type: input
+    id: entity
+    attributes:
+      label: Repository or Package Identifier
+      description: The canonical ID, GitHub repository (owner/repo), or package name.
+      placeholder: e.g. owner/repo or package-name
+    validations:
+      required: true
+  - type: dropdown
+    id: flag_type
+    attributes:
+      label: Anomaly Flag Type
+      options:
+        - "Star Burst (Unusual star velocity)"
+        - "Download Step (Unusual download spike)"
+        - "Metadata / Category Mapping Correction"
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Context & Supporting Evidence
+      description: Public links documenting organic exposure (e.g. Hacker News front page, viral product launch, benchmark inclusion, container image base adoption).
+    validations:
+      required: true
+  - type: input
+    id: verification
+    attributes:
+      label: Maintainer Verification
+      description: Proof of project affiliation (e.g. GitHub organization email domain, commit signing key ID, or official maintainer handle).
+    validations:
+      required: true
