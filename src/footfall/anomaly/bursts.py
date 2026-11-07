@@ -30,23 +30,32 @@ class BurstWindow:
     sample_size: int = 0
     has_hn_story: bool = False
 
+    dispute_status: str = "normal"
+
     def to_summary(self) -> dict[str, Any]:
         """Convert burst window to public trust layer output.
 
         Enforces Section 10.5 wording rules:
         - Must say 'unusual star activity', never 'fake', 'fraud', or 'bought'.
         - Explanations are templated strings with computed values.
+        - Dispute process: maintainers can dispute; flag is hidden while status is 'disputed'.
         """
         is_unusual = self.low_quality_share >= 0.5 and self.sample_size >= 30
-        flag_text = (
-            f"unusual star activity: {self.burst_excess:.0f} stars above baseline "
-            f"across {self.burst_days} days ({self.low_quality_share:.1%} low-activity accounts)"
-            if is_unusual
-            else (
+        is_hidden = self.dispute_status == "disputed"
+
+        if is_hidden:
+            flag_text = ""
+        elif is_unusual:
+            flag_text = (
+                f"unusual star activity: {self.burst_excess:.0f} stars above baseline "
+                f"across {self.burst_days} days "
+                f"({self.low_quality_share:.1%} low-activity accounts)"
+            )
+        else:
+            flag_text = (
                 f"star burst: {self.burst_excess:.0f} stars above baseline "
                 f"across {self.burst_days} days"
             )
-        )
 
         explained_by = "hn_story" if self.has_hn_story else None
         confidence = "medium" if self.has_hn_story else ("high" if is_unusual else "low")
@@ -64,8 +73,19 @@ class BurstWindow:
             "is_unusual": is_unusual,
             "explained_by": explained_by,
             "confidence": confidence,
+            "dispute_status": self.dispute_status,
+            "is_hidden": is_hidden,
             "public_flag": flag_text,
         }
+
+
+def compute_adjusted_star_gain(s28: float, burst_windows: Sequence[BurstWindow]) -> float:
+    """Compute adjusted star gain down-weighting low-quality bursts (Section 10.4).
+
+    Formula: s28_adj = s28 - sum(burst_excess * low_quality_share)
+    """
+    excess_deduction = sum(w.burst_excess * w.low_quality_share for w in burst_windows)
+    return max(0.0, float(s28 - excess_deduction))
 
 
 def detect_star_bursts(
