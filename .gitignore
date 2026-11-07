@@ -37,8 +37,10 @@ htmlcov/
 *.duckdb
 *.duckdb.wal
 
-# Parquet intermediate files (raw snapshots live in footfall-data repo)
-data/
+data/*
+!data/backtest/
+data/backtest/*
+!data/backtest/manifest.json
 *.parquet
 
 # Jupyter

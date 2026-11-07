@@ -1,0 +1,9 @@
+{
+  "snapshots_parquet_sha256": "8602a9ada8ebee7adce179f272eb8f41b7640c4848be574112271b3494e57036",
+  "calls_ledger_sha256": "120560bb5a7853cea902b8abfc759b526ffc10ca7f17d3ec8f9758189e00f0cc",
+  "backtest_report_sha256": "026ae3b036553929659546f10ac887112dbd4da241cb25b09c6cb5dd84b6a977",
+  "total_calls": 7248,
+  "resolved_calls": 7248,
+  "coverage": 1.0,
+  "breakout_precision": 0.0
+}

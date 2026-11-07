@@ -29,8 +29,7 @@ phase0:
 ## Rebuild derived tables from raw snapshots and verify output hashes match.
 ## Fails CI if any hash differs (section 11.5 of the build documentation).
 reproduce:
-	@echo "reproduce: not yet implemented (task T1.7)"
-	@exit 1
+	uv run footfall reproduce --verify
 
 ## Remove build artifacts
 clean:

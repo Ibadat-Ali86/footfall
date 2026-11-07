@@ -153,10 +153,70 @@ def features() -> None:
 
 
 @main.command()
-def backtest() -> None:
+@click.option(
+    "--parquet",
+    default="phase0/data/snapshots.parquet",
+    help="Path to Parquet snapshots",
+)
+@click.option(
+    "--registry",
+    default="registry/seed.yaml",
+    help="Path to registry seed YAML",
+)
+@click.option(
+    "--ledger-output",
+    default="data/ledger/calls.jsonl",
+    help="Path to calls ledger JSONL",
+)
+@click.option(
+    "--output",
+    default="data/backtest/latest.json",
+    help="Path to backtest report output JSON",
+)
+def backtest(parquet: str, registry: str, ledger_output: str, output: str) -> None:
     """Run the weekly backtest and append to the call ledger."""
-    # TODO T1.7 — implement ledger and backtest
-    raise NotImplementedError("backtest: not yet implemented (task T1.7)")
+    from footfall.ledger.reproduce import run_reproduce_pipeline
+
+    manifest = run_reproduce_pipeline(
+        snapshots_parquet=parquet,
+        registry_yaml=registry,
+        ledger_output=ledger_output,
+        backtest_output=output,
+        verify=False,
+    )
+    click.echo(
+        f"Backtest complete: {manifest['total_calls']} calls evaluated, "
+        f"{manifest['resolved_calls']} resolved ({manifest['coverage']:.1%} coverage). "
+        f"Precision: {manifest['breakout_precision']:.1%}. Report -> {output}"
+    )
+
+
+@main.command()
+@click.option(
+    "--verify",
+    is_flag=True,
+    default=False,
+    help="Verify that rebuilt outputs match the cryptographic manifest",
+)
+@click.option(
+    "--manifest",
+    default="data/backtest/manifest.json",
+    help="Path to reference manifest JSON",
+)
+def reproduce(verify: bool, manifest: str) -> None:
+    """Rebuild derived tables and backtest from raw snapshots and verify hashes (Section 11.5)."""
+    from footfall.ledger.reproduce import run_reproduce_pipeline
+
+    try:
+        res = run_reproduce_pipeline(verify=verify, manifest_path=manifest)
+        click.echo(
+            f"Reproduce verification successful: "
+            f"Ledger SHA-256={res['calls_ledger_sha256'][:16]}..., "
+            f"Backtest SHA-256={res['backtest_report_sha256'][:16]}..."
+        )
+    except Exception as exc:
+        click.echo(f"Reproduce verification failed: {exc}", err=True)
+        sys.exit(1)
 
 
 @main.command()
