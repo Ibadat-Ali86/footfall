@@ -414,3 +414,45 @@ def alerts(
         dispatcher = WebhookDispatcher(webhook_url=webhook_url, secret=webhook_secret)
         success = dispatcher.dispatch(events)
         click.echo(f"Webhook dispatch result: {'success' if success else 'failed'}")
+
+
+@main.command()
+@click.option(
+    "--source",
+    type=click.Choice(["pypi", "npm"], case_sensitive=False),
+    required=True,
+    help="Registry source ecosystem",
+)
+@click.option(
+    "--package",
+    required=True,
+    help="Package name (e.g. langchain-core or @modelcontextprotocol/sdk)",
+)
+@click.option("--json-out", is_flag=True, default=False, help="Emit output as JSON")
+def dependents(source: str, package: str, json_out: bool) -> None:
+    """Analyze downstream dependents and calculate Adoption Depth Ratio."""
+    import json
+
+    from footfall.dependents import DependentsCollector
+
+    collector = DependentsCollector()
+    record = collector.fetch_dependents(entity_id=package, source=source, package_name=package)
+
+    if not record:
+        click.echo(
+            f"Package '{package}' not found or no data available in {source.lower()} registry.",
+            err=True,
+        )
+        sys.exit(1)
+
+    if json_out:
+        click.echo(json.dumps(record.to_dict(), indent=2))
+        return
+
+    click.echo(f"=== Ecosystem Adoption Depth: {record.package_name} ===")
+    click.echo(f"Registry:           {record.source}")
+    click.echo(f"Dependent Packages: {record.dependent_packages_count:,}")
+    click.echo(f"Dependent Repos:    {record.dependent_repos_count:,}")
+    click.echo(f"Monthly Downloads:  {record.monthly_downloads:,}")
+    click.echo(f"Adoption Depth:     {record.depth_ratio:.4f}")
+    click.echo(f"Adoption Tier:      {record.depth_tier}")
