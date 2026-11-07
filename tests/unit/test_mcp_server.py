@@ -260,3 +260,51 @@ def test_streamable_http_origin_validation() -> None:
     # May be 404 or 405 on root GET, but NOT 403
     assert resp_good.status_code != 403
     assert resp_good.headers.get("X-Content-Type-Options") == "nosniff"
+
+
+@pytest.mark.unit
+def test_streamable_http_health_probes() -> None:
+    """Section 4.2 / T2.7: /health/live and /health/ready probes."""
+    from starlette.testclient import TestClient
+
+    from footfall.server.app import create_streamable_app
+
+    app = create_streamable_app(exports_dir=Path("exports/v1"))
+    client = TestClient(app)
+
+    live_resp = client.get("/health/live")
+    assert live_resp.status_code == 200
+    assert live_resp.json() == {"status": "live"}
+
+    ready_resp = client.get("/health/ready")
+    assert ready_resp.status_code == 200
+    ready_data = ready_resp.json()
+    assert ready_data["status"] == "ready"
+    assert "as_of" in ready_data
+    assert "method_version" in ready_data
+
+
+@pytest.mark.unit
+def test_streamable_http_kill_switch(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Section 13.4: Kill switch returns 503 data_unavailable for requests."""
+    from starlette.testclient import TestClient
+
+    from footfall.server.app import create_streamable_app
+
+    monkeypatch.setenv("FOOTFALL_KILL_SWITCH", "1")
+    app = create_streamable_app(exports_dir=Path("exports/v1"))
+    client = TestClient(app)
+
+    # Liveness passes (process running)
+    live_resp = client.get("/health/live")
+    assert live_resp.status_code == 200
+
+    # Readiness fails with 503 data_unavailable
+    ready_resp = client.get("/health/ready")
+    assert ready_resp.status_code == 503
+    assert ready_resp.json()["code"] == "data_unavailable"
+
+    # MCP route fails with 503 data_unavailable
+    mcp_resp = client.get("/mcp")
+    assert mcp_resp.status_code == 503
+    assert mcp_resp.json()["code"] == "data_unavailable"

@@ -1,0 +1,25 @@
+services:
+  footfall-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: footfall-server:latest
+    container_name: footfall-mcp-server
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - FOOTFALL_KILL_SWITCH=0
+      - PYTHONUNBUFFERED=1
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/live')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3

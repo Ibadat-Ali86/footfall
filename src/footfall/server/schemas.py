@@ -6,11 +6,20 @@ FLAGGED FOR HUMAN REVIEW per AGENTS.md rules on editing src/footfall/server/.
 
 from __future__ import annotations
 
-from typing import Literal
+from typing import Annotated, Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, StringConstraints
 
 ENTITY_STRING_PATTERN: str = r"^[A-Za-z0-9@._/\-]{1,100}$"
+
+EntityIdentifier = Annotated[
+    str,
+    StringConstraints(
+        pattern=ENTITY_STRING_PATTERN,
+        min_length=1,
+        max_length=100,
+    ),
+]
 
 
 class CompareInput(BaseModel):
@@ -18,7 +27,7 @@ class CompareInput(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    entities: list[str] = Field(
+    entities: list[EntityIdentifier] = Field(
         ...,
         min_length=2,
         max_length=6,
@@ -37,9 +46,8 @@ class TrendInput(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    entity: str = Field(
+    entity: EntityIdentifier = Field(
         ...,
-        pattern=ENTITY_STRING_PATTERN,
         description="Target tool identifier (canonical ID, GitHub repo, or package name).",
     )
     metrics: list[Literal["downloads", "stars", "attention"]] | None = Field(

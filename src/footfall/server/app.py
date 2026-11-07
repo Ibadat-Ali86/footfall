@@ -7,6 +7,8 @@ FLAGGED FOR HUMAN REVIEW per AGENTS.md rules on editing src/footfall/server/.
 from __future__ import annotations
 
 import json
+import os
+from pathlib import Path
 from typing import TYPE_CHECKING, Literal
 
 from mcp.server.mcpserver import MCPServer
@@ -17,12 +19,30 @@ from starlette.responses import JSONResponse, Response
 from footfall.server.service import FootfallService
 
 if TYPE_CHECKING:
-    from pathlib import Path
-
     from starlette.applications import Starlette
     from starlette.middleware.base import RequestResponseEndpoint
     from starlette.requests import Request
     from starlette.types import ASGIApp
+
+
+class KillSwitchMiddleware(BaseHTTPMiddleware):
+    """Enforces Section 13.4 Kill Switch returning 503 data_unavailable when active."""
+
+    async def dispatch(self, request: Request, call_next: RequestResponseEndpoint) -> Response:
+        kill_switch_active = os.environ.get("FOOTFALL_KILL_SWITCH", "").lower() in (
+            "1",
+            "true",
+            "yes",
+        )
+        if kill_switch_active and request.url.path != "/health/live":
+            return JSONResponse(
+                {
+                    "code": "data_unavailable",
+                    "message": "Service is temporarily disabled via kill switch.",
+                },
+                status_code=503,
+            )
+        return await call_next(request)
 
 
 class SecurityHeadersMiddleware(BaseHTTPMiddleware):
@@ -180,8 +200,52 @@ def create_streamable_app(
     exports_dir: Path | str = "exports/v1",
     registry_yaml: Path | str = "registry/seed.yaml",
 ) -> Starlette:
-    """Create hardened Starlette streamable HTTP application at /mcp."""
+    """Create hardened Starlette streamable HTTP application at /mcp with health checks."""
     server = create_mcp_server(exports_dir=exports_dir, registry_yaml=registry_yaml)
     app = server.streamable_http_app()
+    exp_path = Path(exports_dir)
+
+    async def health_live(request: Request) -> Response:
+        """Liveness check probe."""
+        return JSONResponse({"status": "live"})
+
+    async def health_ready(request: Request) -> Response:
+        """Readiness check probe validating static exports and kill switch state."""
+        if os.environ.get("FOOTFALL_KILL_SWITCH", "").lower() in ("1", "true", "yes"):
+            return JSONResponse(
+                {
+                    "status": "unavailable",
+                    "code": "data_unavailable",
+                    "message": "Service is disabled via kill switch.",
+                },
+                status_code=503,
+            )
+
+        meta_file = exp_path / "meta.json"
+        if not meta_file.is_file():
+            return JSONResponse(
+                {"status": "not_ready", "message": "Precomputed exports not found."},
+                status_code=503,
+            )
+
+        try:
+            meta = json.loads(meta_file.read_text(encoding="utf-8"))
+            return JSONResponse(
+                {
+                    "status": "ready",
+                    "as_of": meta.get("as_of"),
+                    "method_version": meta.get("method_version"),
+                    "entities_count": meta.get("entities_count", 0),
+                }
+            )
+        except Exception:
+            return JSONResponse(
+                {"status": "not_ready", "message": "Failed to parse metadata."},
+                status_code=503,
+            )
+
+    app.add_route("/health/live", health_live, methods=["GET"])
+    app.add_route("/health/ready", health_ready, methods=["GET"])
+    app.add_middleware(KillSwitchMiddleware)
     app.add_middleware(SecurityHeadersMiddleware)
     return app
