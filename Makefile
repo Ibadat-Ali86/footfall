@@ -1,6 +1,6 @@
 # Makefile
 
-.PHONY: install test lint types check reproduce clean
+.PHONY: install test lint types check reproduce clean phase0
 
 ## Install all dependencies (frozen lockfile)
 install:
@@ -21,6 +21,10 @@ types:
 
 ## Run all checks (lint + types + tests)
 check: lint types test
+
+## Run Phase 0 hypothesis evaluation (task T0.9)
+phase0:
+	uv run python scripts/evaluate_h1.py
 
 ## Rebuild derived tables from raw snapshots and verify output hashes match.
 ## Fails CI if any hash differs (section 11.5 of the build documentation).

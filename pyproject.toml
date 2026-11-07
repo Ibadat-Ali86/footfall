@@ -99,7 +99,7 @@ show_error_codes = true
 files = ["src/footfall"]
 
 [[tool.mypy.overrides]]
-module = ["pyarrow", "pyarrow.*", "pandas"]
+module = ["pyarrow", "pyarrow.*", "pandas", "scipy", "scipy.*", "sklearn.*"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]
