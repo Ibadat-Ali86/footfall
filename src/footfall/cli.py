@@ -297,3 +297,38 @@ def serve(host: str, port: int, exports_dir: str, stdio: bool) -> None:
     else:
         app = create_streamable_app(exports_dir=exports_dir)
         uvicorn.run(app, host=host, port=port)
+
+
+@main.command()
+@click.argument("manifest", type=click.Path(exists=True, path_type=Path))
+@click.option("--exports-dir", default="exports/v1", help="Path to static exports directory")
+@click.option("--json-out", is_flag=True, default=False, help="Emit output as JSON")
+def stack(manifest: Path, exports_dir: str, json_out: bool) -> None:
+    """Analyze dependencies in a manifest file (pyproject.toml, requirements.txt, package.json)."""
+    import json
+
+    from footfall.stack import StackAnalyzer
+
+    analyzer = StackAnalyzer.create_from_exports(exports_dir=exports_dir)
+    report = analyzer.analyze_manifest(manifest)
+
+    if json_out:
+        click.echo(json.dumps(report.to_dict(), indent=2))
+        return
+
+    click.echo(f"=== Footfall Stack Health: {report.manifest_file} ===")
+    click.echo(f"Total Declared Dependencies: {report.total_dependencies}")
+    click.echo(f"Tracked AI Ecosystem Tools: {report.tracked_tools_count}")
+    click.echo(f"Mean Adoption z-score:       {report.mean_adoption_z:+.2f}")
+    click.echo("\nLifecycle Phase Distribution:")
+    for phase, count in sorted(report.phase_distribution.items()):
+        click.echo(f"  - {phase:<18}: {count}")
+
+    if report.tracked_items:
+        click.echo("\nTracked Tools Detail:")
+        for item in report.tracked_items:
+            click.echo(
+                f"  - {item.display_name:<20} [{item.category:<15}] "
+                f"Phase: {item.phase:<12} "
+                f"(adoption_z: {item.adoption_z:+.2f}, D: {item.divergence:+.2f})"
+            )
