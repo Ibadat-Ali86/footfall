@@ -236,3 +236,41 @@ def report(parquet: str, output: str) -> None:
 
     generate_quality_report(parquet, output)
     click.echo(f"Quality report generated: {output}")
+
+
+@main.command()
+@click.option(
+    "--output-dir",
+    default="exports/v1",
+    help="Target directory for static export files",
+)
+@click.option(
+    "--snapshots",
+    default="phase0/data/snapshots.parquet",
+    help="Path to Parquet snapshots",
+)
+@click.option(
+    "--registry",
+    default="registry/seed.yaml",
+    help="Path to registry seed YAML",
+)
+@click.option(
+    "--as-of",
+    default="2026-11-02",
+    help="Effective date for static exports (YYYY-MM-DD)",
+)
+def export(output_dir: str, snapshots: str, registry: str, as_of: str) -> None:
+    """Generate static export bundle and shields.io badges (Section 12.1)."""
+    from footfall.export import generate_static_export_bundle
+
+    summary = generate_static_export_bundle(
+        snapshots_parquet=snapshots,
+        registry_yaml=registry,
+        output_dir=output_dir,
+        as_of=as_of,
+    )
+    click.echo(
+        f"Export bundle generated in {output_dir}: "
+        f"{summary['entities_count']} entities, {summary['badges_count']} badges, "
+        f"{summary['leaderboards_count']} leaderboards."
+    )
