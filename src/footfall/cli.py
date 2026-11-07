@@ -45,3 +45,22 @@ def backtest() -> None:
     """Run the weekly backtest and append to the call ledger."""
     # TODO T1.7 — implement ledger and backtest
     raise NotImplementedError("backtest: not yet implemented (task T1.7)")
+
+
+@main.command()
+@click.option(
+    "--parquet",
+    default="phase0/data/snapshots.parquet",
+    help="Path to Parquet snapshots",
+)
+@click.option(
+    "--output",
+    default="phase0/data_quality_report.md",
+    help="Path to output report",
+)
+def report(parquet: str, output: str) -> None:
+    """Generate automated data quality report from Parquet dataset."""
+    from footfall.backfill import generate_quality_report
+
+    generate_quality_report(parquet, output)
+    click.echo(f"Quality report generated: {output}")
