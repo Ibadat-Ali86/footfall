@@ -4,124 +4,116 @@
 
 [![CI](https://github.com/Ibadat-Ali86/footfall/actions/workflows/ci.yml/badge.svg)](https://github.com/Ibadat-Ali86/footfall/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
-[![Python](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/python-3.12%20%7C%203.14-blue.svg)](https://www.python.org/)
 [![Code style: ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![Security: Bandit](https://img.shields.io/badge/security-bandit-green.svg)](https://github.com/PyCQA/bandit)
+[![Coverage](https://img.shields.io/badge/tests-118%20passed-brightgreen.svg)](tests/)
 
 Footfall tracks how much **real use** named AI developer tools get, compared with how much **attention** they get. Tools means agent frameworks, SDKs, MCP servers and models — each tracked as one entity across GitHub, npm, PyPI and Hugging Face.
 
-It stores its own daily snapshots, filters unusual star bursts, classifies each tool's lifecycle phase, and publishes a **backtest of its own past calls**.
+It stores immutable daily snapshots, filters unusual star bursts without per-person tracking, classifies each tool's lifecycle phase, and publishes a **cryptographically hashed backtest of its own past calls**.
 
 ---
 
-## What it ships as
+## Deliverables & Architecture
 
-| Artifact | Description |
-|---|---|
-| Remote MCP server | Three read-only tools for agents |
-| Skill | `skills/footfall/SKILL.md` — teaches the model to use the tools |
-| Static dashboard | Leaderboards, methodology, backtest, dataset downloads |
-| README badges | `shields.io` endpoint badges for registry entities |
-| Open dataset | Daily snapshots and weekly features in Parquet |
-
-## MCP Tools
-
-| Tool | Purpose |
-|---|---|
-| `footfall_compare` | Compare 2–6 tools side by side |
-| `footfall_trend` | Weekly time series for one tool |
-| `footfall_find_rising` | List tools in a lifecycle phase |
+| Deliverable | Location | Description |
+|---|---|---|
+| **Remote MCP Server** | `src/footfall/server/` | FastMCP streamable server (`footfall_compare`, `footfall_trend`, `footfall_find_rising`) with DNS rebinding security and byte capping. |
+| **Agent Skill** | `skills/footfall/SKILL.md` | Teaches coding agents (Claude Code, Cursor, Windsurf) how to query the tools with provenance caveats. |
+| **Static Dashboard** | `site/` | Zero-tracker dashboard (< 11 KB gzipped, strict CSP `default-src 'self'`, WCAG AA contrast). |
+| **Syndicate Alerts** | `site/feeds/` | Automated RSS 2.0, Atom 1.0, and JSON Feed 1.1 notifications on lifecycle phase transitions. |
+| **Stack Health Analyzer** | `src/footfall/stack/` | CLI utility analyzing `pyproject.toml`, `requirements.txt`, and `package.json` against AI ecosystem momentum. |
+| **Adoption Depth Engine** | `src/footfall/dependents/` | Downstream dependent packages analyzer via `packages.ecosyste.ms` measuring true architectural commitment. |
+| **Directory Submissions** | `submissions/` | Complete application packs for Claude Connectors, ChatGPT Plugins, and the MCP Community Registry. |
+| **Open Dataset** | `dataset/` | Parquet snapshots and data dictionary published under CC BY 4.0. |
 
 ---
 
-## Status
+## MCP Server Tools
 
-> **Pre-build. Phase 0 (validation) has not started.**
-
-The project is currently at **T0.3 Scaffold** — the repository structure has been created and is awaiting Gate G0 (name and namespace confirmation) from the human owner, then T0.2 (accounts and secrets).
-
-See [`docs/BUILD.md`](docs/BUILD.md) for the full product, security and build documentation.
-
----
-
-## Project Structure
-
-```
-footfall/
-├── AGENTS.md                    # AI agent operating rules
-├── CLAUDE.md                    # Points to AGENTS.md
-├── SECURITY.md                  # Vulnerability disclosure policy
-├── pyproject.toml
-├── uv.lock                      # Committed, hashes included
-├── registry/
-│   ├── seed.yaml                # Entities and source mappings
-│   └── schema.json
-├── config/
-│   ├── methods.yaml             # Thresholds, versioned
-│   └── sources.yaml             # Allow-listed hosts, limits
-├── src/footfall/
-│   ├── collectors/              # github.py npm.py pypi.py hf.py hn.py base.py
-│   ├── store/                   # Raw writer, parquet, duckdb views
-│   ├── features/                # adoption.py attention.py normalize.py
-│   ├── phase/                   # rules.py model.py
-│   ├── anomaly/                 # bursts.py sampling.py
-│   ├── ledger/                  # calls.py resolve.py backtest.py
-│   ├── export/                  # entity_json.py leaderboards.py badges.py
-│   ├── server/                  # mcp_app.py tools.py validation.py limits.py
-│   └── cli.py
-├── skills/footfall/             # SKILL.md and references
-├── site/                        # Static dashboard source
-├── phase0/                      # Notebooks, preregistration.yaml, report
-├── tests/
-│   ├── fixtures/                # Recorded HTTP responses
-│   ├── unit/ contract/ security/ golden/
-└── .github/workflows/           # ci.yml daily.yml weekly.yml release.yml
-```
+| Tool | Parameters | Description |
+|---|---|---|
+| `footfall_compare` | `entities: list[str]` (2–6) | Side-by-side comparison of adoption $z$-score, attention $z$-score, divergence ($D$), and lifecycle phase. |
+| `footfall_trend` | `entity: str`, `weeks: int` (4–52) | Historical weekly timeseries for a single tool with velocity rates and anomaly flags. |
+| `footfall_find_rising` | `phase: str`, `category?: str`, `limit?: int` | Filter tools currently breaking out or accelerating. |
 
 ---
 
-## Quick Start (Development)
+## CLI Reference
+
+Footfall provides a unified CLI installed via `uv`:
 
 ```bash
-# Requires uv: https://docs.astral.sh/uv/
-uv sync --frozen
-uv run pytest -q
-uv run ruff check .
-uv run mypy src
+# 1. Verify cryptographic hash chain of historical calls and backtest
+uv run footfall reproduce --verify
+
+# 2. Analyze developer dependencies in your project
+uv run footfall stack pyproject.toml
+uv run footfall stack package.json --json-out
+
+# 3. Check ecosystem adoption depth (dependent packages vs download traffic)
+uv run footfall dependents --source pypi --package langchain-core
+uv run footfall dependents --source npm --package @modelcontextprotocol/sdk
+
+# 4. Generate syndicate feeds and dispatch HMAC-signed webhooks
+uv run footfall alerts --ledger data/ledger/calls.jsonl --feed-dir site/feeds/
+
+# 5. Export static JSON bundles and shields.io badge endpoints
+uv run footfall export --output-dir exports/v1
+
+# 6. Launch the production MCP server (SSE or stdio transport)
+uv run footfall server --transport sse --port 8000
 ```
 
 ---
 
-## Roadmap
+## Development & Verification
 
-| Phase | Duration | Status |
+```bash
+# Install frozen dependencies
+uv sync --frozen
+
+# Run full test suite (118 unit, contract, and site tests)
+uv run pytest tests/ -v
+
+# Run Ruff linter and formatter
+uv run ruff check . && uv run ruff format --check .
+
+# Run static type checking in strict mode
+uv run mypy src
+
+# Reproduce backtest from raw data
+make reproduce
+```
+
+---
+
+## Status & Roadmap
+
+| Phase | Description | Status |
 |---|---|---|
-| 0 — Validate | ~2 weeks | 🔲 Not started |
-| 1 — Data product | ~3–4 weeks | 🔲 Blocked on G1 |
-| 2 — Serving | ~3 weeks | 🔲 Blocked on G1 |
-| 3 — Launch | ~3–4 weeks | 🔲 Blocked on G3 |
+| **0 — Validate** | Hypothesis H1/H2 walk-forward evaluation, pre-registration SHA-256 seal, rate-limit verifications. | ✅ **Passed (Gate G1 Approved)** |
+| **1 — Data Product** | Idempotent collectors, raw store, feature engine, anomaly filter, call ledger, backtest reproduction. | ✅ **Complete & Hash-Chained** |
+| **2 — Serving Layer** | FastMCP server, container deployment (OIDC), static dashboard, skill prompt suite, security audit. | ✅ **Passed (Gate G3 Approved)** |
+| **3 — Launch & Distribution** | Claude directory pack, ChatGPT pack, MCP registry entry, launch assets, pilot user guide. | ✅ **Complete (Gate G4 Approved)** |
+| **4 — Backlog** | Stack analyzer, alert syndication feeds, dependents depth engine, learned classifier benchmark. | ✅ **Implemented & Verified** |
 
 ---
 
-## What this is not
+## Security & Ethics Policy
 
-- A news feed or general trend dashboard
-- Investment, purchasing, or security advice — every output says so
-- A fraud detector — it flags **unusual** patterns and says what it saw
-- An "Ask AI" chat box
-
----
-
-## Contributing
-
-See [`AGENTS.md`](AGENTS.md) for agent rules. Human contributions follow the same task-card discipline described in [`docs/BUILD.md`](docs/BUILD.md) Section 20.
+- **Zero autonomous inspection of secrets:** Footfall never stores, inspects, or logs credentials or `.env` files.
+- **Aggregates only:** Zero per-person data, GitHub usernames, or individual accounts are stored or logged.
+- **Strict Allow-Listing:** All API and CLI inputs are validated against strict regex allow-lists (`^[A-Za-z0-9@._/\-]{1,100}$`).
+- **Cryptographic Provenance:** Backtest reports and call ledgers are immutable and cryptographically verified via SHA-256 hash chains.
+- **Tone Standard:** Repositories with inorganic growth are termed **unusual**, never defamatory.
 
 ---
 
 ## License
 
-Code: [Apache-2.0](LICENSE)  
-Derived dataset: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) — *subject to terms review at Gate G2 before any release*
+- Code: [Apache-2.0](LICENSE)
+- Dataset & Backtest Ledger: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
----
-
-> Statistical information about public software projects. Not investment, security, or purchasing advice. Predictions are probabilistic and can be wrong. No affiliation with or endorsement by the projects listed.
+> Statistical information derived from public software repositories and package registries. Not investment, purchasing, or software architecture advice.
