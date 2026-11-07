@@ -1,0 +1,11 @@
+{
+  "start": "2025-05-01",
+  "end": "2026-11-01",
+  "package": "old-package",
+  "downloads": [
+    {
+      "downloads": 120,
+      "day": "2025-05-01"
+    }
+  ]
+}

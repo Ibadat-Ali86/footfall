@@ -1,0 +1,21 @@
+{
+  "hits": [
+    {
+      "created_at": "2026-10-30T18:00:00.000Z",
+      "title": "Show HN: LangGraph v1.0 Released",
+      "url": "https://github.com/langchain-ai/langgraph",
+      "points": 345,
+      "num_comments": 89
+    },
+    {
+      "created_at": "2026-10-20T12:00:00.000Z",
+      "title": "Building Reliable Multi-Agent Workflows with LangGraph",
+      "url": "https://github.com/langchain-ai/langgraph/discussions/12",
+      "points": 180,
+      "num_comments": 42
+    }
+  ],
+  "nbHits": 2,
+  "page": 0,
+  "hitsPerPage": 50
+}
