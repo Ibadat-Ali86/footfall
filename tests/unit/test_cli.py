@@ -1,4 +1,5 @@
 """Tests for the CLI entry point — smoke tests only at scaffold stage."""
+
 from __future__ import annotations
 
 import pytest

@@ -10,6 +10,7 @@ Design decisions:
 - tenacity-style retry is wired in at the transport level so all subclasses
   get it for free.
 """
+
 from __future__ import annotations
 
 from abc import ABC, abstractmethod

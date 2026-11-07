@@ -1,11 +1,12 @@
 """CLI entry point for the footfall pipeline."""
+
 from __future__ import annotations
 
 import click
 
 
 @click.group()
-@click.version_option()
+@click.version_option(package_name="footfall-core")
 def main() -> None:
     """Footfall — Real usage, not hype."""
 

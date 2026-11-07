@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://footfall.dev/schemas/registry-seed.json",
+  "title": "FootfallEntityRegistry",
+  "description": "Validation schema for Footfall entity registry and source mappings (Section 8 of BUILD.md)",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["entity_id", "display_name", "category", "status", "sources"],
+    "additionalProperties": false,
+    "properties": {
+      "entity_id": {
+        "type": "string",
+        "pattern": "^[a-z0-9-]{3,64}$",
+        "description": "Unique slug identifier for the tool/entity"
+      },
+      "display_name": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 100,
+        "description": "Human-readable tool title"
+      },
+      "category": {
+        "type": "string",
+        "enum": [
+          "agent-framework",
+          "llm-sdk",
+          "mcp-server",
+          "vector-store",
+          "eval-tool",
+          "model",
+          "other"
+        ],
+        "description": "Tool classification category"
+      },
+      "status": {
+        "type": "string",
+        "enum": ["active", "archived", "excluded"],
+        "default": "active",
+        "description": "Tracking status of the entity"
+      },
+      "sources": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "object",
+          "required": ["source", "key", "mapping_confidence"],
+          "additionalProperties": false,
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": ["github", "npm", "pypi", "huggingface"]
+            },
+            "key": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9@._/\\-]{1,100}$",
+              "description": "owner/repo for GitHub, package name for npm/PyPI, model ID for Hugging Face"
+            },
+            "mapping_confidence": {
+              "type": "string",
+              "enum": ["verified", "declared", "heuristic"],
+              "description": "verified = bidirectional link; declared = unidirectional link; heuristic = name alignment only"
+            },
+            "verified_at": {
+              "type": ["string", "null"],
+              "format": "date-time",
+              "description": "ISO timestamp when the mapping was verified"
+            }
+          }
+        }
+      }
+    }
+  }
+}

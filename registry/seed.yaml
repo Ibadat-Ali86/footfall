@@ -1,78 +1,2315 @@
-# Registry seed v0 — stub for T0.5
-# IMPORTANT: Every entry must be verified by the T0.5 script before it feeds metrics.
-# mapping_confidence values: verified | declared | heuristic
-# Only "verified" mappings feed published metrics.
-#
-# Selection rule (to be finalized in preregistration.yaml before T0.9):
-# Top N by GitHub stars per category plus M random, as of the seed date.
-# Seed date: 2026-11-01 (first collection date).
-#
-# Format for each source entry:
-#   {source: github|npm|pypi|huggingface, key: <owner/repo|package|model-id>}
-
-schema_version: 1
-
-# ── Agent frameworks ──────────────────────────────────────────────────────────
 - entity_id: langgraph
   display_name: LangGraph
   category: agent-framework
   status: active
   sources:
-    - {source: github, key: langchain-ai/langgraph}
-    - {source: pypi,   key: langgraph}
-    - {source: npm,    key: "@langchain/langgraph"}
-  mapping_confidence: declared  # verify at T0.5
-
+  - source: github
+    key: langchain-ai/langgraph
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: langgraph
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: '@langchain/langgraph'
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
 - entity_id: crewai
   display_name: CrewAI
   category: agent-framework
   status: active
   sources:
-    - {source: github, key: crewAIInc/crewAI}
-    - {source: pypi,   key: crewai}
-  mapping_confidence: declared
-
+  - source: github
+    key: crewAIInc/crewAI
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: crewai
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
 - entity_id: autogen
   display_name: AutoGen
   category: agent-framework
   status: active
   sources:
-    - {source: github, key: microsoft/autogen}
-    - {source: pypi,   key: pyautogen}
-  mapping_confidence: declared
-
-# ── LLM SDKs ─────────────────────────────────────────────────────────────────
+  - source: github
+    key: microsoft/autogen
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: autogen-agentchat
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: llama-index
+  display_name: LlamaIndex
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: run-llama/llama_index
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: llama-index
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: llamaindex
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: semantic-kernel
+  display_name: Semantic Kernel
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: microsoft/semantic-kernel
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: semantic-kernel
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: '@microsoft/semantic-kernel'
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: haystack
+  display_name: Haystack
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: deepset-ai/haystack
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: haystack-ai
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: dspy
+  display_name: DSPy
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: stanfordnlp/dspy
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: dspy-ai
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: smolagents
+  display_name: smolagents
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: huggingface/smolagents
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: smolagents
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: openhands
+  display_name: OpenHands
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: All-Hands-AI/OpenHands
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: openhands-ai
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: swarm
+  display_name: Swarm
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: openai/swarm
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: metagpt
+  display_name: MetaGPT
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: geekan/MetaGPT
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: metagpt
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: auto-gpt
+  display_name: AutoGPT
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: Significant-Gravitas/AutoGPT
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: agno
+  display_name: Agno
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: agno-agi/agno
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: agno
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: browser-use
+  display_name: browser-use
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: browser-use/browser-use
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: browser-use
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: camel-ai
+  display_name: CAMEL
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: camel-ai/camel
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: camel-ai
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: superagent
+  display_name: Superagent
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: superagent-ai/superagent
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: superagent-py
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: langroid
+  display_name: Langroid
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: langroid/langroid
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: langroid
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: agent-protocol
+  display_name: Agent Protocol
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: AI-Engineers-Foundation/agent-protocol
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: agent-protocol
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: auto-coder
+  display_name: auto-coder
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: allwefantasy/auto-coder
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: auto-coder
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: chatdev
+  display_name: ChatDev
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: OpenBMB/ChatDev
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: memgpt
+  display_name: MemGPT
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: cpacker/MemGPT
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: pymemgpt
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: babyagi
+  display_name: BabyAGI
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: yoheinakajima/babyagi
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: gpt-engineer
+  display_name: gpt-engineer
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: gpt-engineer-org/gpt-engineer
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: gpt-engineer
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: devika
+  display_name: Devika
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: stitionai/devika
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: agenta
+  display_name: Agenta
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: Agenta-AI/agenta
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: agenta
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: open-interpreter
+  display_name: Open Interpreter
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: OpenInterpreter/open-interpreter
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: open-interpreter
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: taskingai
+  display_name: TaskingAI
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: TaskingAI/TaskingAI
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: taskingai
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: coze-py
+  display_name: Coze Python SDK
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: coze-dev/coze-py
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: coze-py
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: mistral-common
+  display_name: Mistral Common
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: mistralai/mistral-common
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: mistral-common
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: langflow
+  display_name: Langflow
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: langflow-ai/langflow
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: langflow
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: flowise
+  display_name: Flowise
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: FlowiseAI/Flowise
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: flowise
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: dify
+  display_name: Dify
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: langgenius/dify
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: rivo
+  display_name: Rivo
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: rivo-ai/rivo
+    mapping_confidence: declared
+- entity_id: bolt-diy
+  display_name: bolt.diy
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: stackblitz-labs/bolt.diy
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: aider
+  display_name: Aider
+  category: agent-framework
+  status: active
+  sources:
+  - source: github
+    key: Aider-AI/aider
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: aider-chat
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
 - entity_id: openai-python
   display_name: OpenAI Python SDK
   category: llm-sdk
   status: active
   sources:
-    - {source: github, key: openai/openai-python}
-    - {source: pypi,   key: openai}
-    - {source: npm,    key: openai}
-  mapping_confidence: declared
-
-- entity_id: anthropic-python
+  - source: github
+    key: openai/openai-python
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: openai
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: openai
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: anthropic-sdk-python
   display_name: Anthropic Python SDK
   category: llm-sdk
   status: active
   sources:
-    - {source: github, key: anthropics/anthropic-sdk-python}
-    - {source: pypi,   key: anthropic}
-  mapping_confidence: declared
-
-# ── MCP servers ───────────────────────────────────────────────────────────────
-# (populate further at T0.5)
-
-# ── Vector stores ─────────────────────────────────────────────────────────────
+  - source: github
+    key: anthropics/anthropic-sdk-python
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: anthropic
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: '@anthropic-ai/sdk'
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: google-genai
+  display_name: Google GenAI SDK
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: googleapis/python-genai
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: google-genai
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: google-generativeai
+  display_name: Google Generative AI (Legacy)
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: google-gemini/generative-ai-python
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: google-generativeai
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: mistralai
+  display_name: Mistral AI SDK
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: mistralai/client-python
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: mistralai
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: '@mistralai/mistralai'
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: groq-python
+  display_name: Groq Python SDK
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: groq/groq-python
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: groq
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: groq-sdk
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: cohere-python
+  display_name: Cohere Python SDK
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: cohere-ai/cohere-python
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: cohere
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: cohere-ai
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: ollama-python
+  display_name: Ollama Python SDK
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: ollama/ollama-python
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: ollama
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: ollama
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: vllm
+  display_name: vLLM
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: vllm-project/vllm
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: vllm
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: sglang
+  display_name: SGLang
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: sgl-project/sglang
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: sglang
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: litellm
+  display_name: LiteLLM
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: BerriAI/litellm
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: litellm
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: instructor
+  display_name: Instructor
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: jxnl/instructor
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: instructor
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: guidance
+  display_name: Guidance
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: guidance-ai/guidance
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: guidance
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: outlines
+  display_name: Outlines
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: dottxt-ai/outlines
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: outlines
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: lmql
+  display_name: LMQL
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: eth-sri/lmql
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: lmql
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: tiktoken
+  display_name: tiktoken
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: openai/tiktoken
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: tiktoken
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: tiktoken
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: tokenizers
+  display_name: Hugging Face Tokenizers
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: huggingface/tokenizers
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: tokenizers
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: together-python
+  display_name: Together AI SDK
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: togethercomputer/together-python
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: together
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: replicate-python
+  display_name: Replicate Python SDK
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: replicate/replicate-python
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: replicate
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: replicate
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: ai21-python
+  display_name: AI21 Python SDK
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: AI21Labs/ai21-python
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: ai21
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: fireworks-ai
+  display_name: Fireworks AI SDK
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: fireworks-ai/fireworks-python
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: fireworks-ai
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: deepinfra
+  display_name: DeepInfra SDK
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: deepinfra/deepinfra-python
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: deepinfra
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: deepseek-api
+  display_name: DeepSeek API
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: deepseek-ai/DeepSeek-V3
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: openrouter-runner
+  display_name: OpenRouter Runner
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: OpenRouterTeam/openrouter-runner
+    mapping_confidence: declared
+- entity_id: anyio
+  display_name: AnyIO
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: agronholm/anyio
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: anyio
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: llama-cpp-python
+  display_name: llama-cpp-python
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: abetlen/llama-cpp-python
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: llama-cpp-python
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: exllamav2
+  display_name: ExLlamaV2
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: turboderp/exllamav2
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: exllamav2
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: tensorrt-llm
+  display_name: TensorRT-LLM
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: NVIDIA/TensorRT-LLM
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: tgi
+  display_name: Text Generation Inference
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: huggingface/text-generation-inference
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: aphrodite-engine
+  display_name: Aphrodite Engine
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: PygmalionAI/aphrodite-engine
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: aphrodite-engine
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: mlx-lm
+  display_name: MLX LM
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: ml-explore/mlx-examples
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: mlx-lm
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: unsloth-zoo
+  display_name: Unsloth Zoo
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: unslothai/unsloth-zoo
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: unsloth-zoo
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: jsonrepair
+  display_name: jsonrepair
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: m-ahmad-s/jsonrepair
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: jsonrepair
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: jsonrepair
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: dirtyjson
+  display_name: dirtyjson
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: dpranke/dirtyjson
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: dirtyjson
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: pydantic-ai
+  display_name: Pydantic AI
+  category: llm-sdk
+  status: active
+  sources:
+  - source: github
+    key: pydantic/pydantic-ai
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: pydantic-ai
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: mcp-python-sdk
+  display_name: MCP Python SDK
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: modelcontextprotocol/python-sdk
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: mcp
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: mcp-typescript-sdk
+  display_name: MCP TypeScript SDK
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: modelcontextprotocol/typescript-sdk
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: '@modelcontextprotocol/sdk'
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: mcp-server-filesystem
+  display_name: MCP Filesystem Server
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: modelcontextprotocol/servers
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: '@modelcontextprotocol/server-filesystem'
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: mcp-server-git
+  display_name: MCP Git Server
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: modelcontextprotocol/servers
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: mcp-server-git
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: mcp-server-github
+  display_name: MCP GitHub Server
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: modelcontextprotocol/servers
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: '@modelcontextprotocol/server-github'
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: mcp-server-postgres
+  display_name: MCP PostgreSQL Server
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: modelcontextprotocol/servers
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: '@modelcontextprotocol/server-postgres'
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: mcp-server-sqlite
+  display_name: MCP SQLite Server
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: modelcontextprotocol/servers
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: mcp-server-sqlite
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: mcp-server-brave-search
+  display_name: MCP Brave Search Server
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: modelcontextprotocol/servers
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: '@modelcontextprotocol/server-brave-search'
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: mcp-server-fetch
+  display_name: MCP Fetch Server
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: modelcontextprotocol/servers
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: mcp-server-fetch
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: mcp-server-puppeteer
+  display_name: MCP Puppeteer Server
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: modelcontextprotocol/servers
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: '@modelcontextprotocol/server-puppeteer'
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: mcp-server-slack
+  display_name: MCP Slack Server
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: modelcontextprotocol/servers
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: '@modelcontextprotocol/server-slack'
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: mcp-server-memory
+  display_name: MCP Knowledge Graph Memory Server
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: modelcontextprotocol/servers
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: '@modelcontextprotocol/server-memory'
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: mcp-server-everything
+  display_name: MCP Reference Everything Server
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: modelcontextprotocol/servers
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: '@modelcontextprotocol/server-everything'
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: mcp-server-sentry
+  display_name: MCP Sentry Server
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: modelcontextprotocol/servers
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: mcp-server-sentry
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: mcp-server-docker
+  display_name: MCP Docker Server
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: modelcontextprotocol/servers
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: '@modelcontextprotocol/server-docker'
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: mcp-proxy
+  display_name: MCP Proxy
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: sparfenyuk/mcp-proxy
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: mcp-proxy
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: fastmcp
+  display_name: FastMCP
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: jlowin/fastmcp
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: fastmcp
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: mcp-cli
+  display_name: mcp-cli
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: wong2/mcp-cli
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: '@wong2/mcp-cli'
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: supergateway
+  display_name: supergateway
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: supercorp-ai/supergateway
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: supergateway
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: mcp-get
+  display_name: mcp-get
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: mcp-get/mcp-get
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: mcp-get
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: smithery-cli
+  display_name: Smithery CLI
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: smithery-ai/cli
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: '@smithery/cli'
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: mcp-inspector
+  display_name: MCP Inspector
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: modelcontextprotocol/inspector
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: '@modelcontextprotocol/inspector'
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: cline
+  display_name: Cline
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: cline/cline
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: cline
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: roo-cline
+  display_name: Roo Cline
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: RooVetGit/Roo-Cline
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: continue
+  display_name: Continue
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: continuedev/continue
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: '@continuedev/core'
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: cursor-rules
+  display_name: Cursor Rules Collection
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: PatrickJS/awesome-cursorrules
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: mcp-server-kubernetes
+  display_name: MCP Kubernetes Server
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: strowk/mcp-k8s
+    mapping_confidence: declared
+- entity_id: mcp-server-notion
+  display_name: MCP Notion Server
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: suekou/mcp-notion-server
+    mapping_confidence: declared
+- entity_id: mcp-server-linear
+  display_name: MCP Linear Server
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: jerhadf/linear-mcp-server
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: mcp-server-google-maps
+  display_name: MCP Google Maps Server
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: modelcontextprotocol/servers
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: mcp-server-jira
+  display_name: MCP Jira Server
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: hyperdxio/mcp-jira
+    mapping_confidence: declared
+- entity_id: mcp-server-context7
+  display_name: Context7 MCP Server
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: context7/mcp-server
+    mapping_confidence: declared
+- entity_id: mcp-server-redis
+  display_name: MCP Redis Server
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: modelcontextprotocol/servers
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: mcp-server-weaviate
+  display_name: MCP Weaviate Server
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: weaviate/weaviate-mcp
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: mcp-server-qdrant
+  display_name: MCP Qdrant Server
+  category: mcp-server
+  status: active
+  sources:
+  - source: github
+    key: qdrant/mcp-server-qdrant
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
 - entity_id: chromadb
   display_name: ChromaDB
   category: vector-store
   status: active
   sources:
-    - {source: github, key: chroma-core/chroma}
-    - {source: pypi,   key: chromadb}
-  mapping_confidence: declared
-
-# ── Eval tools ────────────────────────────────────────────────────────────────
-# (populate further at T0.5)
+  - source: github
+    key: chroma-core/chroma
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: chromadb
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: chromadb
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: qdrant-client
+  display_name: Qdrant Client
+  category: vector-store
+  status: active
+  sources:
+  - source: github
+    key: qdrant/qdrant-client
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: qdrant-client
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: '@qdrant/js-client-rest'
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: weaviate-client
+  display_name: Weaviate Client
+  category: vector-store
+  status: active
+  sources:
+  - source: github
+    key: weaviate/weaviate-python-client
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: weaviate-client
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: weaviate-ts-client
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: pymilvus
+  display_name: Milvus Client
+  category: vector-store
+  status: active
+  sources:
+  - source: github
+    key: milvus-io/pymilvus
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: pymilvus
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: '@zilliz/milvus2-sdk-node'
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: pinecone-client
+  display_name: Pinecone Client
+  category: vector-store
+  status: active
+  sources:
+  - source: github
+    key: pinecone-io/pinecone-python-client
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: pinecone-client
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: '@pinecone-database/pinecone'
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: faiss
+  display_name: FAISS
+  category: vector-store
+  status: active
+  sources:
+  - source: github
+    key: facebookresearch/faiss
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: faiss-cpu
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: pgvector-python
+  display_name: pgvector Python
+  category: vector-store
+  status: active
+  sources:
+  - source: github
+    key: pgvector/pgvector-python
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: pgvector
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: lance
+  display_name: Lance Columnar Format
+  category: vector-store
+  status: active
+  sources:
+  - source: github
+    key: lancedb/lance
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: pylance
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: lancedb
+  display_name: LanceDB
+  category: vector-store
+  status: active
+  sources:
+  - source: github
+    key: lancedb/lancedb
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: lancedb
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: '@lancedb/lancedb'
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: marqo
+  display_name: Marqo
+  category: vector-store
+  status: active
+  sources:
+  - source: github
+    key: marqo-ai/marqo
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: marqo
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: txtai
+  display_name: txtai
+  category: vector-store
+  status: active
+  sources:
+  - source: github
+    key: neuml/txtai
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: txtai
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: vespa
+  display_name: PyVespa
+  category: vector-store
+  status: active
+  sources:
+  - source: github
+    key: vespa-engine/pyvespa
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: pyvespa
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: valkey
+  display_name: Valkey
+  category: vector-store
+  status: active
+  sources:
+  - source: github
+    key: valkey-io/valkey
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: redis-om
+  display_name: Redis OM Python
+  category: vector-store
+  status: active
+  sources:
+  - source: github
+    key: redis/redis-om-python
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: redis-om
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: opensearch-py
+  display_name: OpenSearch Python Client
+  category: vector-store
+  status: active
+  sources:
+  - source: github
+    key: opensearch-project/opensearch-py
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: opensearch-py
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: elasticsearch-py
+  display_name: Elasticsearch Python Client
+  category: vector-store
+  status: active
+  sources:
+  - source: github
+    key: elastic/elasticsearch-py
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: elasticsearch
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: hnswlib
+  display_name: HNSWLib
+  category: vector-store
+  status: active
+  sources:
+  - source: github
+    key: nmslib/hnswlib
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: hnswlib
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: usearch
+  display_name: USearch
+  category: vector-store
+  status: active
+  sources:
+  - source: github
+    key: unum-cloud/usearch
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: usearch
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: usearch
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: meilisearch-python
+  display_name: Meilisearch Python
+  category: vector-store
+  status: active
+  sources:
+  - source: github
+    key: meilisearch/meilisearch-python
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: meilisearch
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: pgvector
+  display_name: pgvector Extension
+  category: vector-store
+  status: active
+  sources:
+  - source: github
+    key: pgvector/pgvector
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: scann
+  display_name: ScaNN
+  category: vector-store
+  status: active
+  sources:
+  - source: github
+    key: google-research/google-research
+    mapping_confidence: declared
+  - source: pypi
+    key: scann
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: voyageai
+  display_name: Voyage AI Client
+  category: vector-store
+  status: active
+  sources:
+  - source: github
+    key: voyage-ai/voyageai-python
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: voyageai
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: cohere-embed
+  display_name: Cohere Embed Client
+  category: vector-store
+  status: active
+  sources:
+  - source: github
+    key: cohere-ai/cohere-python
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: cohere
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: infinity-emb
+  display_name: Infinity Embeddings
+  category: vector-store
+  status: active
+  sources:
+  - source: github
+    key: michaelfeil/infinity
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: infinity-emb
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: fastembed
+  display_name: FastEmbed
+  category: vector-store
+  status: active
+  sources:
+  - source: github
+    key: qdrant/fastembed
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: fastembed
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: ragas
+  display_name: Ragas
+  category: eval-tool
+  status: active
+  sources:
+  - source: github
+    key: explodinggradients/ragas
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: ragas
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: deepeval
+  display_name: DeepEval
+  category: eval-tool
+  status: active
+  sources:
+  - source: github
+    key: confident-ai/deepeval
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: deepeval
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: trulens
+  display_name: TruLens
+  category: eval-tool
+  status: active
+  sources:
+  - source: github
+    key: truera/trulens
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: trulens-eval
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: promptfoo
+  display_name: Promptfoo
+  category: eval-tool
+  status: active
+  sources:
+  - source: github
+    key: promptfoo/promptfoo
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: promptfoo
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: phoenix
+  display_name: Arize Phoenix
+  category: eval-tool
+  status: active
+  sources:
+  - source: github
+    key: Arize-ai/phoenix
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: arize-phoenix
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: langfuse
+  display_name: Langfuse
+  category: eval-tool
+  status: active
+  sources:
+  - source: github
+    key: langfuse/langfuse
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: langfuse
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: langfuse
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: openinference
+  display_name: OpenInference
+  category: eval-tool
+  status: active
+  sources:
+  - source: github
+    key: Arize-ai/openinference
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: openinference-instrumentation
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: giskard
+  display_name: Giskard
+  category: eval-tool
+  status: active
+  sources:
+  - source: github
+    key: Giskard-AI/giskard
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: giskard
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: openai-evals
+  display_name: OpenAI Evals
+  category: eval-tool
+  status: active
+  sources:
+  - source: github
+    key: openai/evals
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: lm-evaluation-harness
+  display_name: LM Evaluation Harness
+  category: eval-tool
+  status: active
+  sources:
+  - source: github
+    key: EleutherAI/lm-evaluation-harness
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: lm-eval
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: inspect-ai
+  display_name: Inspect AI
+  category: eval-tool
+  status: active
+  sources:
+  - source: github
+    key: UKGovernmentBEIS/inspect_ai
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: inspect-ai
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: uptrain
+  display_name: UpTrain
+  category: eval-tool
+  status: active
+  sources:
+  - source: github
+    key: uptrain-ai/uptrain
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: uptrain
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: langsmith-sdk
+  display_name: LangSmith SDK
+  category: eval-tool
+  status: active
+  sources:
+  - source: github
+    key: langchain-ai/langsmith-sdk
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: langsmith
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: langsmith
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: helicone
+  display_name: Helicone
+  category: eval-tool
+  status: active
+  sources:
+  - source: github
+    key: Helicone/helicone
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: helicone
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: helicone
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: braintrust
+  display_name: Braintrust
+  category: eval-tool
+  status: active
+  sources:
+  - source: github
+    key: braintrustdata/braintrust-proxy
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: braintrust
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: braintrust
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: agentops
+  display_name: AgentOps
+  category: eval-tool
+  status: active
+  sources:
+  - source: github
+    key: AgentOps-AI/agentops
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: agentops
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: weave
+  display_name: W&B Weave
+  category: eval-tool
+  status: active
+  sources:
+  - source: github
+    key: wandb/weave
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: weave
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: promptwatch
+  display_name: PromptWatch
+  category: eval-tool
+  status: active
+  sources:
+  - source: github
+    key: blip-solutions/promptwatch
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: promptwatch
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: openllmetry
+  display_name: OpenLLMetry
+  category: eval-tool
+  status: active
+  sources:
+  - source: github
+    key: traceloop/openllmetry
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: traceloop-sdk
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: '@traceloop/node-server-sdk'
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: guardrails
+  display_name: Guardrails AI
+  category: eval-tool
+  status: active
+  sources:
+  - source: github
+    key: guardrails-ai/guardrails
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: guardrails-ai
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: nemo-guardrails
+  display_name: NeMo Guardrails
+  category: eval-tool
+  status: active
+  sources:
+  - source: github
+    key: NVIDIA/NeMo-Guardrails
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: nemoguardrails
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: llm-guard
+  display_name: LLM Guard
+  category: eval-tool
+  status: active
+  sources:
+  - source: github
+    key: laiyer-ai/llm-guard
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: llm-guard
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: garak
+  display_name: Garak LLM Vulnerability Scanner
+  category: eval-tool
+  status: active
+  sources:
+  - source: github
+    key: leondz/garak
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: garak
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: deepteam
+  display_name: DeepTeam
+  category: eval-tool
+  status: active
+  sources:
+  - source: github
+    key: confident-ai/deepteam
+    mapping_confidence: declared
+  - source: pypi
+    key: deepteam
+    mapping_confidence: declared
+- entity_id: cleanlab
+  display_name: Cleanlab Studio
+  category: eval-tool
+  status: active
+  sources:
+  - source: github
+    key: cleanlab/cleanlab
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: cleanlab
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: unsloth
+  display_name: Unsloth
+  category: model
+  status: active
+  sources:
+  - source: github
+    key: unslothai/unsloth
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: unsloth
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: trl
+  display_name: TRL (Transformer Reinforcement Learning)
+  category: model
+  status: active
+  sources:
+  - source: github
+    key: huggingface/trl
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: trl
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: peft
+  display_name: PEFT
+  category: model
+  status: active
+  sources:
+  - source: github
+    key: huggingface/peft
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: peft
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: transformers
+  display_name: Hugging Face Transformers
+  category: model
+  status: active
+  sources:
+  - source: github
+    key: huggingface/transformers
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: transformers
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: diffusers
+  display_name: Diffusers
+  category: model
+  status: active
+  sources:
+  - source: github
+    key: huggingface/diffusers
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: diffusers
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: sentence-transformers
+  display_name: Sentence Transformers
+  category: model
+  status: active
+  sources:
+  - source: github
+    key: UKPLab/sentence-transformers
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: sentence-transformers
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: bitsandbytes
+  display_name: bitsandbytes
+  category: model
+  status: active
+  sources:
+  - source: github
+    key: bitsandbytes-foundation/bitsandbytes
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: bitsandbytes
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: accelerate
+  display_name: Accelerate
+  category: model
+  status: active
+  sources:
+  - source: github
+    key: huggingface/accelerate
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: accelerate
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: datasets
+  display_name: Hugging Face Datasets
+  category: model
+  status: active
+  sources:
+  - source: github
+    key: huggingface/datasets
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: datasets
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: vllm-model
+  display_name: vLLM Engine
+  category: model
+  status: active
+  sources:
+  - source: github
+    key: vllm-project/vllm
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: vllm
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: llama-models
+  display_name: Llama Models
+  category: model
+  status: active
+  sources:
+  - source: github
+    key: meta-llama/llama-models
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: llama-models
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: axolotl
+  display_name: Axolotl
+  category: model
+  status: active
+  sources:
+  - source: github
+    key: axolotl-ai-cloud/axolotl
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: torchtune
+  display_name: TorchTune
+  category: model
+  status: active
+  sources:
+  - source: github
+    key: pytorch/torchtune
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: torchtune
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: llm-foundry
+  display_name: LLM Foundry
+  category: model
+  status: active
+  sources:
+  - source: github
+    key: mosaicml/llm-foundry
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: llm-foundry
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: optimum
+  display_name: Optimum
+  category: model
+  status: active
+  sources:
+  - source: github
+    key: huggingface/optimum
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: optimum
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: safetensors
+  display_name: Safetensors
+  category: model
+  status: active
+  sources:
+  - source: github
+    key: huggingface/safetensors
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: safetensors
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: npm
+    key: '@huggingface/hub'
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: timm
+  display_name: PyTorch Image Models
+  category: model
+  status: active
+  sources:
+  - source: github
+    key: huggingface/pytorch-image-models
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: timm
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: flash-attention
+  display_name: FlashAttention
+  category: model
+  status: active
+  sources:
+  - source: github
+    key: Dao-AILab/flash-attention
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: flash-attn
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: auto-gptq
+  display_name: AutoGPTQ
+  category: model
+  status: active
+  sources:
+  - source: github
+    key: AutoGPTQ/AutoGPTQ
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: auto-gptq
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: autoawq
+  display_name: AutoAWQ
+  category: model
+  status: active
+  sources:
+  - source: github
+    key: casper-hansen/AutoAWQ
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: autoawq
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: llama-factory
+  display_name: LLaMA Factory
+  category: model
+  status: active
+  sources:
+  - source: github
+    key: hiyouga/LLaMA-Factory
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: open-instruct
+  display_name: Open Instruct
+  category: model
+  status: active
+  sources:
+  - source: github
+    key: allenai/open-instruct
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: triton
+  display_name: Triton
+  category: model
+  status: active
+  sources:
+  - source: github
+    key: triton-lang/triton
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: triton
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: deepspeed
+  display_name: DeepSpeed
+  category: model
+  status: active
+  sources:
+  - source: github
+    key: microsoft/DeepSpeed
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: deepspeed
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+- entity_id: liger-kernel
+  display_name: Liger Kernel
+  category: model
+  status: active
+  sources:
+  - source: github
+    key: linkedin/Liger-Kernel
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'
+  - source: pypi
+    key: liger-kernel
+    mapping_confidence: verified
+    verified_at: '2026-11-01T00:00:00Z'

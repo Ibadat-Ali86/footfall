@@ -85,7 +85,7 @@ select = [
   "TCH",      # flake8-type-checking
   "ANN",      # flake8-annotations
 ]
-ignore = ["ANN101", "ANN102", "S101"]  # allow assert in tests
+ignore = ["S101"]  # allow assert in tests
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["S", "ANN"]
@@ -100,6 +100,7 @@ files = ["src/footfall"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["src"]
 asyncio_mode = "auto"
 addopts = [
   "-q",
