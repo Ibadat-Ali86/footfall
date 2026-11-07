@@ -246,6 +246,14 @@ def create_streamable_app(
 
     app.add_route("/health/live", health_live, methods=["GET"])
     app.add_route("/health/ready", health_ready, methods=["GET"])
+
+    site_dir = Path("site")
+    if site_dir.is_dir():
+        from starlette.staticfiles import StaticFiles
+
+        app.mount("/dashboard", StaticFiles(directory=str(site_dir), html=True), name="dashboard")
+        app.mount("/", StaticFiles(directory=str(site_dir), html=True), name="site")
+
     app.add_middleware(KillSwitchMiddleware)
     app.add_middleware(SecurityHeadersMiddleware)
     return app
