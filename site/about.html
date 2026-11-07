@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+  <title>Footfall — About, Ethics, and Governance</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="brand">
+        Footfall
+        <span class="brand-badge">m1.0</span>
+      </a>
+      <nav aria-label="Main Navigation">
+        <ul>
+          <li><a href="index.html">Leaderboards</a></li>
+          <li><a href="methodology.html">Methodology</a></li>
+          <li><a href="backtest.html">Backtest</a></li>
+          <li><a href="data.html">Data</a></li>
+          <li><a href="about.html" aria-current="page">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero">
+      <h1>About Footfall</h1>
+      <p>
+        Footfall is an independent, open-source measurement system providing empirical developer adoption analytics for AI frameworks, SDKs, vector stores, and MCP servers.
+      </p>
+      <div class="provenance-bar">
+        <span><strong>Governance:</strong> Public Scientific Methodology</span>
+        <span><strong>License:</strong> Apache-2.0 / CC BY 4.0</span>
+        <span><strong>Security Contact:</strong> security@footfall.dev</span>
+        <span><strong>Disputes Contact:</strong> disputes@footfall.dev</span>
+      </div>
+    </section>
+
+    <section class="card" style="margin-bottom: 32px;">
+      <h2>Core Principles &amp; Ethics</h2>
+      <ul style="padding-left: 20px; color: var(--text-muted); line-height: 1.8;">
+        <li><strong>Aggregates Only:</strong> We store zero personal data. No GitHub usernames, stargazer profiles, or contributor identifiers are ever recorded in our databases or ledgers.</li>
+        <li><strong>No Negative Badges:</strong> Maintainer README badges never display critical labels. Only positive milestones (<code>breakout</code>, <code>use_ahead</code>, <code>mainstream</code>) are shown; otherwise a neutral <code>tracked</code> badge is emitted.</li>
+        <li><strong>Objective Language:</strong> We never accuse projects of fraud or fake metrics. Statistical outliers are objectively described as "unusual velocity" with full contextual data.</li>
+        <li><strong>Zero Commercial Conflicts:</strong> Footfall is not an investment fund, does not sell consulting ratings, and does not accept paid placements.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="disputes" style="margin-bottom: 32px;">
+      <h2>Maintainer Dispute Process</h2>
+      <p style="margin-bottom: 12px; color: var(--text-muted);">
+        If your repository displays an unusual star activity or download surge flag, you have an immediate right of reply:
+      </p>
+      <ol style="padding-left: 20px; color: var(--text-muted); line-height: 1.8; margin-bottom: 16px;">
+        <li>Email <code>disputes@footfall.dev</code> or open an issue on GitHub using our dispute template.</li>
+        <li>Provide links documenting external organic exposure (e.g., product launch, Hacker News submission, conference demo).</li>
+        <li>Our team acknowledges within <strong>48 hours</strong> and masks the flag with a neutral "disputed" notice during review.</li>
+        <li>Final empirical determinations are issued within <strong>7 business days</strong> and logged in our public repository.</li>
+      </ol>
+      <p><a href="https://github.com/Ibadat-Ali86/footfall/blob/main/docs/dispute-process.md">Read the full Dispute Resolution Protocol &rarr;</a></p>
+    </section>
+
+    <section class="card" id="privacy" style="margin-bottom: 32px;">
+      <h2>Privacy &amp; Data Minimization Summary</h2>
+      <p style="margin-bottom: 12px; color: var(--text-muted);">
+        Footfall adheres to strict data minimization principles:
+      </p>
+      <ul style="padding-left: 20px; color: var(--text-muted); line-height: 1.8;">
+        <li><strong>Zero Trackers:</strong> This website contains zero third-party scripts, zero analytics beacons, and zero tracking cookies.</li>
+        <li><strong>Strict Content Security Policy:</strong> All resources are served exclusively from this origin (<code>default-src 'self'</code>).</li>
+        <li><strong>Edge Rate Limiting:</strong> IP addresses processed at the edge for rate limiting (60 req/min) are hashed with a rotating salt and retained for at most 14 days.</li>
+      </ul>
+      <p style="margin-top: 12px;"><a href="https://github.com/Ibadat-Ali86/footfall/blob/main/docs/privacy-policy.md">Read our full Privacy Policy &rarr;</a></p>
+    </section>
+
+    <section class="card" style="margin-bottom: 32px;">
+      <h2>Formal Disclaimers</h2>
+      <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.7;">
+        Footfall outputs are probabilistic, empirical measurements of public package manager traffic and open-source repository activity. They do not constitute financial, investment, purchasing, or security advice. Past velocity does not ensure continued adoption or technical stability. Footfall has no official affiliation with, and is not endorsed by, any software project listed in its registry.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div>
+        <p><strong>Footfall</strong> &mdash; Public AI developer tool adoption analytics.</p>
+        <p>Contact: <code>contact@footfall.dev</code></p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="index.html">Leaderboards</a></li>
+        <li><a href="methodology.html">Methodology</a></li>
+        <li><a href="backtest.html">Backtest</a></li>
+        <li><a href="data.html">Data Exports</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

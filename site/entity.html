@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+  <title>Footfall — Entity Profile</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="brand">
+        Footfall
+        <span class="brand-badge">m1.0</span>
+      </a>
+      <nav aria-label="Main Navigation">
+        <ul>
+          <li><a href="index.html">Leaderboards</a></li>
+          <li><a href="methodology.html">Methodology</a></li>
+          <li><a href="backtest.html">Backtest</a></li>
+          <li><a href="data.html">Data</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div style="margin-bottom: 16px;">
+      <a href="index.html">&larr; Back to Leaderboards</a>
+    </div>
+
+    <section class="hero" id="profile-hero">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
+        <div>
+          <h1 id="entity-name">LangGraph</h1>
+          <p id="entity-category">Category: <strong>agent-framework</strong></p>
+        </div>
+        <div id="entity-phase-badge">
+          <span class="badge badge-breakout" style="font-size: 1rem; padding: 6px 16px;">breakout</span>
+        </div>
+      </div>
+      <div class="provenance-bar">
+        <span><strong>As of:</strong> <span id="as-of-date">2026-11-02</span></span>
+        <span><strong>Method Version:</strong> m1.0</span>
+        <span><strong>Verified Sources:</strong> <span id="source-count">3 mappings</span></span>
+        <span><strong>Backtest Ref:</strong> <a href="backtest.html">latest.json</a></span>
+      </div>
+    </section>
+
+    <section class="card-grid">
+      <div class="card">
+        <h2>Adoption z-score</h2>
+        <p style="font-size: 2rem; font-weight: 700; color: var(--phase-breakout);" id="stat-adoption">+2.14</p>
+        <p style="color: var(--text-dim); font-size: 0.875rem;">Normalized 4-week growth vs 12-week baseline across category.</p>
+      </div>
+
+      <div class="card">
+        <h2>Attention z-score</h2>
+        <p style="font-size: 2rem; font-weight: 700; color: var(--primary);" id="stat-attention">+0.82</p>
+        <p style="color: var(--text-dim); font-size: 0.875rem;">Adjusted GitHub star velocity and Hacker News discussion volume.</p>
+      </div>
+
+      <div class="card">
+        <h2>Divergence (D)</h2>
+        <p style="font-size: 2rem; font-weight: 700; color: var(--text-main);" id="stat-divergence">-1.32</p>
+        <p style="color: var(--text-dim); font-size: 0.875rem;">\(\text{attention\_z} - \text{adoption\_z}\). Negative indicates usage leads attention.</p>
+      </div>
+    </section>
+
+    <!-- Visual Chart Section -->
+    <section aria-labelledby="chart-heading" style="margin-bottom: 32px;">
+      <h2 id="chart-heading" style="margin-bottom: 12px;">Weekly Adoption Velocity (12-Week Lookback)</h2>
+      
+      <div class="chart-container" id="svg-chart-wrapper" aria-hidden="true">
+        <!-- Lightweight accessible SVG sparkline/trend chart -->
+        <svg viewBox="0 0 800 240" width="100%" height="100%" style="overflow: visible;">
+          <!-- Grid lines -->
+          <line x1="50" y1="20" x2="780" y2="20" stroke="#e2e8f0" stroke-width="1" />
+          <line x1="50" y1="75" x2="780" y2="75" stroke="#e2e8f0" stroke-width="1" />
+          <line x1="50" y1="130" x2="780" y2="130" stroke="#e2e8f0" stroke-width="1" />
+          <line x1="50" y1="185" x2="780" y2="185" stroke="#e2e8f0" stroke-width="1" />
+          <!-- Y-axis labels -->
+          <text x="10" y="25" fill="#64748b" font-size="12">150k</text>
+          <text x="10" y="80" fill="#64748b" font-size="12">100k</text>
+          <text x="10" y="135" fill="#64748b" font-size="12">50k</text>
+          <text x="10" y="190" fill="#64748b" font-size="12">0</text>
+          <!-- Downloads Area & Path -->
+          <polyline fill="none" stroke="#15803d" stroke-width="3" points="
+            50,170 116,165 182,158 248,150 314,142 380,130 446,115 512,98 578,82 644,65 710,48 776,32
+          " />
+          <!-- Data points -->
+          <circle cx="776" cy="32" r="5" fill="#15803d" />
+        </svg>
+      </div>
+
+      <!-- Accessible text alternative table -->
+      <details open>
+        <summary style="font-weight: 600; cursor: pointer; margin-bottom: 8px;">View Historical Data Table (Accessible Alternative)</summary>
+        <div class="table-wrapper">
+          <table aria-label="Historical Weekly Metrics">
+            <thead>
+              <tr>
+                <th scope="col">Week Starting</th>
+                <th scope="col">Weekly Downloads</th>
+                <th scope="col">Adjusted Stars</th>
+                <th scope="col">Attention Volume</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>2026-10-26</td><td>142,500</td><td>5,420</td><td>1.85</td></tr>
+              <tr><td>2026-10-19</td><td>128,100</td><td>5,180</td><td>1.72</td></tr>
+              <tr><td>2026-10-12</td><td>114,300</td><td>4,940</td><td>1.60</td></tr>
+              <tr><td>2026-10-05</td><td>99,800</td><td>4,710</td><td>1.48</td></tr>
+              <tr><td>2026-09-28</td><td>88,200</td><td>4,500</td><td>1.35</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+
+    <section class="card" style="margin-bottom: 32px;">
+      <h2>Data Caveats & Interpretive Guidelines</h2>
+      <ul style="padding-left: 20px; color: var(--text-muted); margin-top: 8px;">
+        <li style="margin-bottom: 6px;">Package downloads include automated CI runs, container image builds, and mirror traffic.</li>
+        <li style="margin-bottom: 6px;">GitHub stars reflect social bookmarking and awareness, not active software dependencies.</li>
+        <li style="margin-bottom: 6px;">Results are quantitative empirical measurements and do not constitute financial, investment, or purchasing advice.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div>
+        <p><strong>Footfall</strong> &mdash; Public AI developer tool adoption analytics.</p>
+        <p>All numbers show <code>as_of: 2026-11-02</code> and link to verified data paths.</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="methodology.html">Methodology</a></li>
+        <li><a href="backtest.html">Backtest</a></li>
+        <li><a href="data.html">Data Exports</a></li>
+        <li><a href="about.html#disputes">Disputes</a></li>
+        <li><a href="about.html#privacy">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

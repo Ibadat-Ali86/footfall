@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+  <title>Footfall — Methodology Specification</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="brand">
+        Footfall
+        <span class="brand-badge">m1.0</span>
+      </a>
+      <nav aria-label="Main Navigation">
+        <ul>
+          <li><a href="index.html">Leaderboards</a></li>
+          <li><a href="methodology.html" aria-current="page">Methodology</a></li>
+          <li><a href="backtest.html">Backtest</a></li>
+          <li><a href="data.html">Data</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero">
+      <h1>Methodology Specification (m1.0)</h1>
+      <p>
+        Rigorous mathematical definitions, lifecycle classification rules, robust normalization algorithms, and anomaly defenses governing Footfall measurements.
+      </p>
+      <div class="provenance-bar">
+        <span><strong>Pre-registration Hash:</strong> <code>c81d8238578f88f5986cafb7013130ac219f335c56bf9c5f3f47d76a8baa7571</code></span>
+        <span><strong>Full Specification:</strong> <a href="https://github.com/Ibadat-Ali86/footfall/blob/main/docs/methodology.md">docs/methodology.md</a></span>
+      </div>
+    </section>
+
+    <section class="card" style="margin-bottom: 32px;">
+      <h2>1. Core Mathematical Metrics</h2>
+      <p style="margin-bottom: 12px;">All metrics are computed weekly on calendar-week boundaries (Monday 00:00 UTC) with zero lookahead leakage:</p>
+      
+      <div style="background: var(--bg-muted); padding: 16px; border-radius: 6px; font-family: monospace; font-size: 0.95rem; line-height: 1.8; margin-bottom: 16px;">
+        <strong>1. Weekly Downloads (W):</strong> Aggregated package manager installs (npm + PyPI) for the 7-day observation window.<br>
+        <strong>2. Log-Ratio Velocity (L):</strong> L = ln((W_t + 1) / (W_{t-4} + 1))<br>
+        <strong>3. Four-Week Growth (g_4):</strong> g_4 = (W_t - W_{t-4}) / max(W_{t-4}, 100)<br>
+        <strong>4. Twelve-Week Growth (g_12):</strong> g_12 = (W_t - W_{t-12}) / max(W_{t-12}, 100)<br>
+        <strong>5. Star Velocity (s_28):</strong> 28-day net organic star gain, adjusted for burst exclusions.<br>
+        <strong>6. Adoption z-score:</strong> (L - Median(L_category)) / (1.4826 * MAD(L_category))<br>
+        <strong>7. Attention z-score:</strong> (s_28 - Median(s_category)) / (1.4826 * MAD(s_category))<br>
+        <strong>8. Divergence (D):</strong> D = attention_z - adoption_z
+      </div>
+    </section>
+
+    <section class="card" style="margin-bottom: 32px;">
+      <h2>2. Table-Driven Lifecycle Classifier</h2>
+      <p style="margin-bottom: 16px;">
+        Evaluated on a strict first-match-wins basis. Every rule is deterministic, parameterized, and reproducible.
+      </p>
+
+      <div class="table-wrapper">
+        <table aria-label="Lifecycle Rules Table">
+          <thead>
+            <tr>
+              <th scope="col">Priority</th>
+              <th scope="col">Phase</th>
+              <th scope="col">Mathematical Criteria</th>
+              <th scope="col">Economic Interpretation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td><span class="badge badge-plateau">insufficient_data</span></td>
+              <td>History &lt; 12 weeks or W &lt; 100</td>
+              <td>Initial gestation or uncalibrated baseline.</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td><span class="badge badge-breakout">breakout</span></td>
+              <td>g_4 &ge; 0.50 AND adoption_z &ge; 1.00 AND W &ge; 1,000 AND D &le; 0.50</td>
+              <td>Rapid organic adoption velocity confirmed by package installs.</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td><span class="badge badge-attention_ahead">attention_ahead</span></td>
+              <td>D &gt; 1.00 AND s_28 &ge; 500 AND W &lt; 5,000</td>
+              <td>High social awareness/hype exceeding installed production usage.</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td><span class="badge badge-use_ahead">use_ahead</span></td>
+              <td>D &lt; -1.00 AND W &ge; 5,000 AND adoption_z &gt; 0.00</td>
+              <td>Workhorse utility; high deployment volume with low social chatter.</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td><span class="badge badge-fading">fading</span></td>
+              <td>g_12 &lt; -0.20 AND adoption_z &lt; -0.50</td>
+              <td>Persistent multi-quarter contraction in package manager usage.</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td><span class="badge badge-emerging">emerging</span></td>
+              <td>W &lt; 5,000 AND g_4 &gt; 0.20</td>
+              <td>Early-stage adoption momentum within initial developer cohorts.</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td><span class="badge badge-mainstream">mainstream</span></td>
+              <td>W &ge; 25,000 AND |g_12| &le; 0.20</td>
+              <td>Established ecosystem fixture with stable deployment volume.</td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td><span class="badge badge-plateau">plateau</span></td>
+              <td>Default fallback</td>
+              <td>Steady-state mature operation without significant acceleration.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card" style="margin-bottom: 32px;">
+      <h2>3. Anomaly & Manipulation Defenses</h2>
+      <ul style="padding-left: 20px; color: var(--text-muted); line-height: 1.8;">
+        <li><strong>Star Burst Detection:</strong> Scans stargazer timestamps using a Poisson process threshold. Bursts exceeding 5x Poisson expected rate within a 72-hour window are excluded from organic star velocity.</li>
+        <li><strong>Download Step Detection:</strong> Rolling 26-week median and Median Absolute Deviation (MAD) identify single-day artificial spikes (|z| &ge; 4.0), preventing CI runner storms from distorting scores.</li>
+        <li><strong>Neutral Language Standard:</strong> In compliance with ethics rules, anomalies are labeled objectively as "unusual velocity" and never use accusatory phrasing.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div>
+        <p><strong>Footfall</strong> &mdash; Public AI developer tool adoption analytics.</p>
+        <p>Pre-registered methodology SHA-256: <code>c81d8238...</code></p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="index.html">Leaderboards</a></li>
+        <li><a href="backtest.html">Backtest</a></li>
+        <li><a href="data.html">Data Exports</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

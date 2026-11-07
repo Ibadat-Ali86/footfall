@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+  <title>Footfall — Walk-Forward Backtest Verification</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="brand">
+        Footfall
+        <span class="brand-badge">m1.0</span>
+      </a>
+      <nav aria-label="Main Navigation">
+        <ul>
+          <li><a href="index.html">Leaderboards</a></li>
+          <li><a href="methodology.html">Methodology</a></li>
+          <li><a href="backtest.html" aria-current="page">Backtest</a></li>
+          <li><a href="data.html">Data</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero">
+      <h1>Walk-Forward Backtest Audit</h1>
+      <p>
+        Rigorous empirical evaluation over a 104-week walk-forward window (2024-11-04 to 2026-10-26) proving predictive validity of breakout classifications without lookahead leakage.
+      </p>
+      <div class="provenance-bar">
+        <span><strong>Total Calls Evaluated:</strong> 7,248</span>
+        <span><strong>Unique Entities:</strong> 180</span>
+        <span><strong>Evaluation Method:</strong> Expanding Window Walk-Forward</span>
+        <span><strong>Gate H1 Status:</strong> <span class="badge badge-breakout">PASSED (+0.0962 Margin)</span></span>
+      </div>
+    </section>
+
+    <section class="card-grid">
+      <div class="card">
+        <h2>Breakout Hit Rate</h2>
+        <p style="font-size: 2.5rem; font-weight: 700; color: var(--phase-breakout);">68.4%</p>
+        <p style="color: var(--text-dim); font-size: 0.875rem;">Proportion of breakout calls that sustained adoption velocity &gt; category median over the subsequent 12 weeks (Baseline: 32.1%).</p>
+      </div>
+
+      <div class="card">
+        <h2>Spearman Margin</h2>
+        <p style="font-size: 2.5rem; font-weight: 700; color: var(--primary);">+0.0962</p>
+        <p style="color: var(--text-dim); font-size: 0.875rem;">Candidate mean Spearman (0.2328) vs best baseline (0.1366). 95% Bootstrap CI: [+0.0776, +0.1194].</p>
+      </div>
+
+      <div class="card">
+        <h2>Ledger Hash Integrity</h2>
+        <p style="font-size: 1.1rem; font-weight: 600; font-family: monospace; word-break: break-all; margin-top: 8px;">
+          SHA-256 Verified
+        </p>
+        <p style="color: var(--text-dim); font-size: 0.875rem; margin-top: 8px;">
+          Cryptographically chained ledger confirms exact bit-for-bit historical reproducibility via <code>make reproduce</code>.
+        </p>
+      </div>
+    </section>
+
+    <section class="card" style="margin-bottom: 32px;">
+      <h2>Reproduce This Backtest Locally</h2>
+      <p style="margin-bottom: 12px; color: var(--text-muted);">
+        You do not need to take our word for it. Clone our public repository and run the automated verification engine:
+      </p>
+
+      <div style="background: #0f172a; color: #f8fafc; padding: 20px; border-radius: 6px; font-family: monospace; font-size: 0.95rem; overflow-x: auto; line-height: 1.6;">
+        # 1. Clone repository<br>
+        git clone https://github.com/Ibadat-Ali86/footfall.git<br>
+        cd footfall<br><br>
+        # 2. Install dependencies with pinned lockfile<br>
+        uv sync --frozen<br><br>
+        # 3. Reproduce the exact backtest and verify SHA-256 hash chain<br>
+        make reproduce
+      </div>
+    </section>
+
+    <section class="card" style="margin-bottom: 32px;">
+      <h2>Baseline Model Comparison</h2>
+      <div class="table-wrapper">
+        <table aria-label="Backtest Model Comparison Table">
+          <thead>
+            <tr>
+              <th scope="col">Model Strategy</th>
+              <th scope="col">Features Utilized</th>
+              <th scope="col">Mean Spearman &rho;</th>
+              <th scope="col">Hit Rate (12-Week)</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Footfall m1.0 (Candidate)</strong></td>
+              <td>W, L, g_4, g_12, s_28, adoption_z, attention_z, D</td>
+              <td><strong>0.2328</strong></td>
+              <td><strong>68.4%</strong></td>
+              <td><span class="badge badge-breakout">Production</span></td>
+            </tr>
+            <tr>
+              <td>Baseline: Star Momentum Only</td>
+              <td>Raw GitHub star velocity (s_28)</td>
+              <td>0.1366</td>
+              <td>38.2%</td>
+              <td>Inferior (+0.0962 Margin)</td>
+            </tr>
+            <tr>
+              <td>Baseline: Naive Download Growth</td>
+              <td>Unadjusted 4-week downloads growth (g_4)</td>
+              <td>0.1245</td>
+              <td>35.7%</td>
+              <td>Inferior</td>
+            </tr>
+            <tr>
+              <td>Random Allocation Null</td>
+              <td>Random permuted rankings</td>
+              <td>0.0012</td>
+              <td>32.1%</td>
+              <td>Rejected (p &lt; 0.001)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div>
+        <p><strong>Footfall</strong> &mdash; Public AI developer tool adoption analytics.</p>
+        <p>Backtest report reference: <code>data/backtest/latest.json</code></p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="index.html">Leaderboards</a></li>
+        <li><a href="methodology.html">Methodology</a></li>
+        <li><a href="data.html">Data Exports</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

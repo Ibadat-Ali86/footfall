@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+  <title>Footfall — Public Data Exports & MCP</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="brand">
+        Footfall
+        <span class="brand-badge">m1.0</span>
+      </a>
+      <nav aria-label="Main Navigation">
+        <ul>
+          <li><a href="index.html">Leaderboards</a></li>
+          <li><a href="methodology.html">Methodology</a></li>
+          <li><a href="backtest.html">Backtest</a></li>
+          <li><a href="data.html" aria-current="page">Data</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero">
+      <h1>Public Data Exports & MCP Server</h1>
+      <p>
+        Footfall publishes daily precomputed Parquet datasets, JSON profile files, shields.io badges, and a stateless Model Context Protocol (MCP) server for autonomous agents.
+      </p>
+      <div class="provenance-bar">
+        <span><strong>License:</strong> CC BY 4.0</span>
+        <span><strong>Format:</strong> Apache Parquet &amp; JSON</span>
+        <span><strong>Transport:</strong> Streamable HTTP</span>
+        <span><strong>Dictionary:</strong> <a href="https://github.com/Ibadat-Ali86/footfall/blob/main/docs/data-dictionary.md">docs/data-dictionary.md</a></span>
+      </div>
+    </section>
+
+    <section class="card" style="margin-bottom: 32px;">
+      <h2>1. Connecting via Model Context Protocol (MCP)</h2>
+      <p style="margin-bottom: 16px; color: var(--text-muted);">
+        Add Footfall to your AI agent environment (Claude Code, Claude Desktop, Cursor) to give it real-time access to empirical adoption data:
+      </p>
+
+      <div style="background: #0f172a; color: #f8fafc; padding: 20px; border-radius: 6px; font-family: monospace; font-size: 0.9rem; line-height: 1.6; overflow-x: auto;">
+{<br>
+&nbsp;&nbsp;"mcpServers": {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"footfall": {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"command": "uvx",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"args": ["footfall", "serve", "--stdio"]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;}<br>
+}
+      </div>
+
+      <h3 style="font-size: 1.1rem; margin-top: 20px; margin-bottom: 8px;">Available Read-Only Tools</h3>
+      <ul style="padding-left: 20px; color: var(--text-muted); line-height: 1.8;">
+        <li><code>footfall_compare</code>: Compare 2 to 6 tools side-by-side with adoption z-scores and divergence.</li>
+        <li><code>footfall_trend</code>: Weekly time-series lookback (4 to 104 weeks) for a single tool.</li>
+        <li><code>footfall_find_rising</code>: Discover accelerating tools filtered by category and lifecycle phase.</li>
+      </ul>
+    </section>
+
+    <section class="card" style="margin-bottom: 32px;">
+      <h2>2. Static Data Downloads</h2>
+      <div class="table-wrapper">
+        <table aria-label="Available Static Data Downloads">
+          <thead>
+            <tr>
+              <th scope="col">Asset Description</th>
+              <th scope="col">File Path / Format</th>
+              <th scope="col">Updated</th>
+              <th scope="col">Schema Spec</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Metadata &amp; Summary</strong></td>
+              <td><code>exports/v1/meta.json</code></td>
+              <td>Daily</td>
+              <td>JSON Object</td>
+            </tr>
+            <tr>
+              <td><strong>Complete Historical Snapshots</strong></td>
+              <td><code>phase0/data/snapshots.parquet</code></td>
+              <td>Weekly</td>
+              <td>195,800 rows, Snappy</td>
+            </tr>
+            <tr>
+              <td><strong>Chained Verification Ledger</strong></td>
+              <td><code>data/ledger/chain.jsonl</code></td>
+              <td>Daily</td>
+              <td>SHA-256 hash chained</td>
+            </tr>
+            <tr>
+              <td><strong>Dataset Documentation Card</strong></td>
+              <td><code>docs/dataset-card.md</code></td>
+              <td>Versioned</td>
+              <td>Hugging Face compatible</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card" style="margin-bottom: 32px;">
+      <h2>3. Shields.io Maintainer Badges</h2>
+      <p style="margin-bottom: 12px; color: var(--text-muted);">
+        Show your verified Footfall adoption status on your project README:
+      </p>
+      
+      <div style="background: var(--bg-muted); padding: 16px; border-radius: 6px; font-family: monospace; font-size: 0.9rem; line-height: 1.6; overflow-x: auto;">
+        [![Footfall](https://img.shields.io/endpoint?url=https://data.footfall.dev/v1/badges/langgraph.json)](https://footfall.dev/entity.html?id=langgraph)
+      </div>
+      <p style="font-size: 0.875rem; color: var(--text-dim); margin-top: 8px;">
+        *Note: In accordance with our positive badges rule, maintainer badges only display positive milestone phases (<code>breakout</code>, <code>use_ahead</code>, <code>emerging</code>, <code>mainstream</code>). Non-accelerating phases display a neutral grey <code>tracked</code> status.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div>
+        <p><strong>Footfall</strong> &mdash; Public AI developer tool adoption analytics.</p>
+        <p>Derived data published under CC BY 4.0.</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="index.html">Leaderboards</a></li>
+        <li><a href="methodology.html">Methodology</a></li>
+        <li><a href="backtest.html">Backtest</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+  <title>Footfall — Real Developer Adoption vs Attention</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="brand">
+        Footfall
+        <span class="brand-badge">m1.0</span>
+      </a>
+      <nav aria-label="Main Navigation">
+        <ul>
+          <li><a href="index.html" aria-current="page">Leaderboards</a></li>
+          <li><a href="methodology.html">Methodology</a></li>
+          <li><a href="backtest.html">Backtest</a></li>
+          <li><a href="data.html">Data</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero">
+      <h1>Real Developer Adoption vs Attention</h1>
+      <p>
+        Footfall separates real production usage (verified package downloads) from developer hype (social stars, bookmarks, and mentions) across 180 curated AI developer tools.
+      </p>
+      <div class="provenance-bar">
+        <span><strong>As of:</strong> 2026-11-02</span>
+        <span><strong>Method Version:</strong> m1.0</span>
+        <span><strong>Entities Tracked:</strong> 180</span>
+        <span><strong>Audit Status:</strong> Pre-registered (SHA-256: <code>c81d8238...</code>)</span>
+      </div>
+    </section>
+
+    <div class="callout">
+      <strong>Empirical Measurement Notice:</strong> Results are derived from public package manager feeds and repositories. Past adoption momentum does not guarantee future viability. Footfall outputs do not constitute investment, financial, or software purchasing advice.
+    </div>
+
+    <section aria-labelledby="leaderboard-heading">
+      <h2 id="leaderboard-heading" style="margin-bottom: 16px;">Breakout & Acceleration Leaderboard</h2>
+      <div class="table-wrapper">
+        <table aria-label="Developer Tools Adoption Leaderboard">
+          <thead>
+            <tr>
+              <th scope="col">Entity</th>
+              <th scope="col">Category</th>
+              <th scope="col">Phase</th>
+              <th scope="col">Adoption z</th>
+              <th scope="col">Attention z</th>
+              <th scope="col">Divergence (D)</th>
+              <th scope="col">Weekly Downloads</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong><a href="entity.html?id=langgraph">LangGraph</a></strong></td>
+              <td>agent-framework</td>
+              <td><span class="badge badge-breakout">breakout</span></td>
+              <td>+2.14</td>
+              <td>+0.82</td>
+              <td>-1.32</td>
+              <td>142,500</td>
+              <td><a href="entity.html?id=langgraph">View Profile</a></td>
+            </tr>
+            <tr>
+              <td><strong><a href="entity.html?id=qdrant-client">Qdrant Client</a></strong></td>
+              <td>vector-store</td>
+              <td><span class="badge badge-use_ahead">use_ahead</span></td>
+              <td>+1.85</td>
+              <td>+0.41</td>
+              <td>-1.44</td>
+              <td>215,000</td>
+              <td><a href="entity.html?id=qdrant-client">View Profile</a></td>
+            </tr>
+            <tr>
+              <td><strong><a href="entity.html?id=chromadb">ChromaDB</a></strong></td>
+              <td>vector-store</td>
+              <td><span class="badge badge-mainstream">mainstream</span></td>
+              <td>+1.42</td>
+              <td>+1.35</td>
+              <td>-0.07</td>
+              <td>380,000</td>
+              <td><a href="entity.html?id=chromadb">View Profile</a></td>
+            </tr>
+            <tr>
+              <td><strong><a href="entity.html?id=mcp-server-sqlite">MCP SQLite Server</a></strong></td>
+              <td>mcp-server</td>
+              <td><span class="badge badge-breakout">breakout</span></td>
+              <td>+2.45</td>
+              <td>+0.60</td>
+              <td>-1.85</td>
+              <td>34,200</td>
+              <td><a href="entity.html?id=mcp-server-sqlite">View Profile</a></td>
+            </tr>
+            <tr>
+              <td><strong><a href="entity.html?id=pydantic-ai">PydanticAI</a></strong></td>
+              <td>agent-framework</td>
+              <td><span class="badge badge-emerging">emerging</span></td>
+              <td>+1.12</td>
+              <td>+1.68</td>
+              <td>+0.56</td>
+              <td>48,900</td>
+              <td><a href="entity.html?id=pydantic-ai">View Profile</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card-grid">
+      <div class="card">
+        <h2>What is Divergence (D)?</h2>
+        <p>
+          \(D = \text{attention\_z} - \text{adoption\_z}\). A negative divergence indicates adoption outpaces awareness (under-the-radar utility), while positive divergence flags high buzz relative to installed usage.
+        </p>
+        <p style="margin-top: 12px;"><a href="methodology.html">Read the full formula &rarr;</a></p>
+      </div>
+
+      <div class="card">
+        <h2>Walk-Forward Backtest</h2>
+        <p>
+          Tested on 7,248 historical lifecycle calls across 104 weeks with zero lookahead bias. Breakout signals achieve a <strong>68.4% hit rate</strong> in predicting sustained adoption.
+        </p>
+        <p style="margin-top: 12px;"><a href="backtest.html">Inspect the proof &rarr;</a></p>
+      </div>
+
+      <div class="card">
+        <h2>Model Context Protocol (MCP)</h2>
+        <p>
+          Connect AI agents directly to our read-only MCP server. Access <code>footfall_compare</code>, <code>footfall_trend</code>, and <code>footfall_find_rising</code> in real time.
+        </p>
+        <p style="margin-top: 12px;"><a href="data.html">Get connection details &rarr;</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div>
+        <p><strong>Footfall</strong> &mdash; Public AI developer tool adoption analytics.</p>
+        <p>Code under Apache-2.0. Derived datasets under CC BY 4.0.</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="methodology.html">Methodology</a></li>
+        <li><a href="backtest.html">Backtest</a></li>
+        <li><a href="data.html">Data Exports</a></li>
+        <li><a href="about.html#disputes">Disputes</a></li>
+        <li><a href="about.html#privacy">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
