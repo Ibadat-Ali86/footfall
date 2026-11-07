@@ -37,7 +37,7 @@ jobs:
       - name: Collect snapshots
         env:
           # WHY: Fine-grained read-only token for public repo metadata only (threat #4)
-          GITHUB_READONLY_TOKEN: ${{ secrets.GITHUB_READONLY_TOKEN }}
+          GH_READONLY_TOKEN: ${{ secrets.GH_READONLY_TOKEN }}
         run: uv run footfall collect --date yesterday
 
       - name: Validate data quality
