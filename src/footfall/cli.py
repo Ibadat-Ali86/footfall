@@ -332,3 +332,85 @@ def stack(manifest: Path, exports_dir: str, json_out: bool) -> None:
                 f"Phase: {item.phase:<12} "
                 f"(adoption_z: {item.adoption_z:+.2f}, D: {item.divergence:+.2f})"
             )
+
+
+@main.command()
+@click.option(
+    "--ledger",
+    default="data/ledger/calls.jsonl",
+    type=click.Path(exists=True, path_type=Path),
+    help="Path to call ledger JSONL",
+)
+@click.option(
+    "--feed-dir",
+    type=click.Path(path_type=Path),
+    help="Output directory for RSS, Atom, and JSON feeds",
+)
+@click.option("--webhook-url", help="HTTPS webhook destination URL")
+@click.option("--webhook-secret", help="Shared secret for HMAC-SHA256 signature")
+@click.option(
+    "--dry-run",
+    is_flag=True,
+    default=False,
+    help="Process alerts without writing feeds or dispatching webhooks",
+)
+def alerts(
+    ledger: Path,
+    feed_dir: Path | None,
+    webhook_url: str | None,
+    webhook_secret: str | None,
+    dry_run: bool,
+) -> None:
+    """Process ecosystem alerts: generate syndication feeds and dispatch webhooks."""
+    import json
+    from collections import defaultdict
+    from typing import Any
+
+    from footfall.alerts import AlertDetector, FeedGenerator, WebhookDispatcher
+
+    records_by_entity: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    with ledger.open("r", encoding="utf-8") as f:
+        for line in f:
+            stripped = line.strip()
+            if stripped:
+                rec = json.loads(stripped)
+                records_by_entity[rec["entity_id"]].append(rec)
+
+    prev_state: dict[str, dict[str, Any]] = {}
+    curr_state: dict[str, dict[str, Any]] = {}
+    latest_ts = "2026-11-01T00:00:00Z"
+
+    for eid, history in records_by_entity.items():
+        if len(history) >= 2:
+            prev_state[eid] = history[-2]
+            curr_state[eid] = history[-1]
+            latest_ts = history[-1].get("timestamp", latest_ts)
+        elif len(history) == 1:
+            curr_state[eid] = history[0]
+            latest_ts = history[0].get("timestamp", latest_ts)
+
+    detector = AlertDetector()
+    events = detector.detect_changes(prev_state, curr_state, timestamp=latest_ts)
+
+    click.echo(f"Alerts processed: {len(events)}")
+    for ev in events:
+        click.echo(f"  - [{ev.alert_type.value}] {ev.display_name}: {ev.summary}")
+
+    if dry_run:
+        click.echo("Dry run enabled. Feeds and webhooks not dispatched.")
+        return
+
+    if feed_dir:
+        feed_dir.mkdir(parents=True, exist_ok=True)
+        gen = FeedGenerator()
+        (feed_dir / "rss.xml").write_text(gen.generate_rss(events), encoding="utf-8")
+        (feed_dir / "atom.xml").write_text(gen.generate_atom(events), encoding="utf-8")
+        (feed_dir / "feed.json").write_text(
+            json.dumps(gen.generate_json_feed(events), indent=2), encoding="utf-8"
+        )
+        click.echo(f"Syndication feeds written to: {feed_dir}")
+
+    if webhook_url:
+        dispatcher = WebhookDispatcher(webhook_url=webhook_url, secret=webhook_secret)
+        success = dispatcher.dispatch(events)
+        click.echo(f"Webhook dispatch result: {'success' if success else 'failed'}")
