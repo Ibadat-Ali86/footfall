@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-type="software">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="page-type" content="software">
+  <meta name="site-kind" content="software">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' data:;">
   <title>Footfall — Real Developer Adoption vs Attention</title>
   <link rel="stylesheet" href="style.css">
@@ -13,6 +15,7 @@
   <header>
     <div class="header-container">
       <a href="index.html" class="brand">
+        <span class="brand-dot" aria-hidden="true"></span>
         Footfall
         <span class="brand-badge">m1.0</span>
       </a>
@@ -29,136 +32,268 @@
   </header>
 
   <main id="main-content">
+    <!-- Section 1: Hero -->
     <section class="hero">
-      <h1>Real Developer Adoption vs Attention</h1>
+      <div class="hero-tag">Empirical Developer Analytics</div>
+      <h1>Real developer adoption separated from social hype</h1>
       <p>
-        Footfall separates real production usage (verified package downloads) from developer hype (social stars, bookmarks, and mentions) across 180 curated AI developer tools.
+        Footfall calculates verified package manager installations against GitHub star velocity across 180 curated developer tools and 356 source mappings. Our walk-forward backtest achieves a 0.2328 Spearman rank correlation against forward production use with zero lookahead leakage.
       </p>
+      <div class="hero-actions">
+        <a href="#comparison-console" class="btn btn-primary">Launch Comparison Console</a>
+        <a href="backtest.html" class="btn btn-secondary">Inspect Walk-Forward Proof</a>
+        <a href="data.html" class="btn btn-secondary">Access MCP Server</a>
+      </div>
       <div class="provenance-bar">
         <span><strong>As of:</strong> 2026-11-02</span>
         <span><strong>Method Version:</strong> m1.0</span>
-        <span><strong>Entities Tracked:</strong> 180</span>
-        <span><strong>Audit Status:</strong> Pre-registered (SHA-256: <code>c81d8238...</code>)</span>
+        <span><strong>Tracked Tools:</strong> 180</span>
+        <span><strong>Pre-registration Hash:</strong> <code>c81d8238...</code></span>
       </div>
     </section>
 
     <div class="callout">
-      <strong>Empirical Measurement Notice:</strong> Results are derived from public package manager feeds and repositories. Past adoption momentum does not guarantee future viability. Footfall outputs do not constitute investment, financial, or software purchasing advice.
+      <strong>Measurement Notice:</strong> All scores reflect aggregated public registry telemetry from PyPI, npm, and GitHub. Past adoption velocity does not predict future utility. Footfall provides quantitative measurements rather than financial, commercial, or procurement advice.
     </div>
 
-    <section aria-labelledby="leaderboard-heading">
-      <h2 id="leaderboard-heading" style="margin-bottom: 16px;">Breakout & Acceleration Leaderboard</h2>
+    <!-- Section 2: App-Frame (Live Comparison Console) -->
+    <section id="comparison-console" class="app-frame-section" aria-labelledby="console-heading">
+      <div class="section-head">
+        <h2 id="console-heading">Momentum &amp; Divergence Console</h2>
+        <p>Inspect adoption velocity, star accumulation, and divergence scores across the tracked catalog, or compare two tools side-by-side.</p>
+      </div>
+
+      <div class="app-frame" id="app-console-container">
+        <div class="app-frame-header">
+          <div class="traffic-lights" aria-hidden="true">
+            <span class="traffic-dot traffic-red"></span>
+            <span class="traffic-dot traffic-yellow"></span>
+            <span class="traffic-dot traffic-green"></span>
+          </div>
+          <span class="app-frame-title">Footfall Comparison Console &mdash; Active Inspection</span>
+          <div class="app-frame-actions">
+            <div class="comparator-picker">
+              <label for="app-comparator-select">Compare with:</label>
+              <select id="app-comparator-select" class="comparator-select">
+                <option value="">Loading tools...</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-split-container">
+          <!-- Left: Tool Selector -->
+          <aside class="app-list-pane" aria-label="Tool Selection List">
+            <div class="app-list-search">
+              <input type="text" id="app-tool-search" placeholder="Filter tools by name..." aria-label="Filter tools list">
+            </div>
+            <div class="app-tool-list" id="app-tool-list">
+              <p class="text-muted" style="padding: 16px;">Loading catalog...</p>
+            </div>
+          </aside>
+
+          <!-- Right: Inspection Pane -->
+          <div class="app-detail-pane" id="app-detail-pane">
+            <p class="text-muted">Select an entity to inspect adoption telemetry.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Interactive Developer Stack Analyzer -->
+    <section id="stack-analyzer" class="stack-analyzer-section" aria-labelledby="stack-heading">
+      <div class="section-head">
+        <h2 id="stack-heading">Interactive Stack Health Analyzer</h2>
+        <p>Evaluate your project dependencies against Footfall adoption baselines. Paste a manifest or select a standard preset below.</p>
+      </div>
+
+      <div class="preset-row">
+        <span class="preset-label">Manifest Presets:</span>
+        <button type="button" class="btn-preset active" data-preset="agents">Agent Workflow Stack</button>
+        <button type="button" class="btn-preset" data-preset="rag">Enterprise Vector RAG</button>
+        <button type="button" class="btn-preset" data-preset="mcp">Model Context Protocol</button>
+      </div>
+
+      <div class="stack-input-container">
+        <textarea id="stack-input" spellcheck="false" aria-label="Project Dependencies Input" placeholder="Paste pyproject.toml or package.json dependencies here..."></textarea>
+        <div>
+          <button type="button" id="stack-analyze-btn" class="btn btn-primary">Run Stack Analysis</button>
+        </div>
+      </div>
+
+      <div id="stack-result">
+        <!-- Rendered by app.js -->
+      </div>
+    </section>
+
+    <!-- Section 4: Signal Pipeline Flow Diagram -->
+    <section id="pipeline-diagram" class="pipeline-section" aria-labelledby="pipeline-heading">
+      <div class="section-head">
+        <h2 id="pipeline-heading">Signal Processing Pipeline</h2>
+        <p>Raw package downloads and repository stars pass through rigorous normalization and anomaly defenses before lifecycle assignment.</p>
+      </div>
+
+      <div class="pipeline-diagram">
+        <div class="pipeline-nodes-grid" role="tablist" aria-label="Signal Pipeline Stages">
+          <div class="pipeline-step-node" data-step="ingest" role="tab" tabindex="0">
+            <div class="step-node-num">Step 01</div>
+            <div class="step-node-title">Raw Telemetry Ingestion</div>
+            <div class="step-node-sub">PyPI, npm, GitHub, Libraries.io</div>
+          </div>
+          <div class="pipeline-step-node" data-step="filter" role="tab" tabindex="0">
+            <div class="step-node-num">Step 02</div>
+            <div class="step-node-title">Anomaly Defenses</div>
+            <div class="step-node-sub">Burst trimming &amp; monorepo split</div>
+          </div>
+          <div class="pipeline-step-node" data-step="normalize" role="tab" tabindex="0">
+            <div class="step-node-num">Step 03</div>
+            <div class="step-node-title">52-Week Normalization</div>
+            <div class="step-node-sub">Rolling median &amp; MAD z-scores</div>
+          </div>
+          <div class="pipeline-step-node" data-step="divergence" role="tab" tabindex="0">
+            <div class="step-node-num">Step 04</div>
+            <div class="step-node-title">Divergence Metric (D)</div>
+            <div class="step-node-sub">attention_z &minus; adoption_z</div>
+          </div>
+          <div class="pipeline-step-node" data-step="classify" role="tab" tabindex="0">
+            <div class="step-node-num">Step 05</div>
+            <div class="step-node-title">Lifecycle Classifier</div>
+            <div class="step-node-sub">7 deterministic phases</div>
+          </div>
+        </div>
+
+        <div class="pipeline-step-detail" id="pipeline-step-detail">
+          <div class="step-detail-inner">
+            <h4>Select a pipeline stage above to view formulas and invariants.</h4>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: 180-Tool Interactive Leaderboard -->
+    <section id="leaderboard" class="leaderboard-section" aria-labelledby="leaderboard-heading">
+      <div class="section-head">
+        <h2 id="leaderboard-heading">180-Tool Adoption Leaderboard</h2>
+        <p>Explore weekly download volume, star momentum, and divergence across six curated technology categories.</p>
+      </div>
+
+      <div class="table-filter-bar">
+        <div class="filter-controls-group">
+          <div class="search-input-wrap">
+            <input type="text" id="table-search-input" placeholder="Search by name, ID, category..." aria-label="Search tools table">
+          </div>
+          <select id="table-category-select" class="select-filter" aria-label="Filter by category">
+            <option value="all">All Categories</option>
+            <option value="agent-framework">agent-framework</option>
+            <option value="vector-store">vector-store</option>
+            <option value="llm-sdk">llm-sdk</option>
+            <option value="mcp-server">mcp-server</option>
+            <option value="eval-tool">eval-tool</option>
+            <option value="model">model</option>
+          </select>
+          <select id="table-phase-select" class="select-filter" aria-label="Filter by phase">
+            <option value="all">All Phases</option>
+            <option value="breakout">breakout</option>
+            <option value="use_ahead">use_ahead</option>
+            <option value="mainstream">mainstream</option>
+            <option value="attention_ahead">attention_ahead</option>
+            <option value="plateau">plateau</option>
+            <option value="fading">fading</option>
+            <option value="emerging">emerging</option>
+          </select>
+        </div>
+        <div class="table-meta-group">
+          <span id="table-count-label">Loading tools...</span>
+        </div>
+      </div>
+
       <div class="table-wrapper">
-        <table aria-label="Developer Tools Adoption Leaderboard">
+        <table aria-label="Curated Developer Tools Adoption Leaderboard">
           <thead>
             <tr>
-              <th scope="col">Entity</th>
-              <th scope="col">Category</th>
-              <th scope="col">Phase</th>
-              <th scope="col">Adoption z</th>
-              <th scope="col">Attention z</th>
-              <th scope="col">Divergence (D)</th>
-              <th scope="col">Weekly Downloads</th>
-              <th scope="col">Actions</th>
+              <th scope="col" data-sort="name">Tool</th>
+              <th scope="col" data-sort="category">Category</th>
+              <th scope="col" data-sort="phase">Phase</th>
+              <th scope="col" data-sort="adoption_z">Adoption z</th>
+              <th scope="col" data-sort="attention_z">Attention z</th>
+              <th scope="col" data-sort="divergence">Divergence</th>
+              <th scope="col" data-sort="downloads">Downloads</th>
+              <th scope="col">Profile</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="leaderboard-tbody">
             <tr>
-              <td><strong><a href="entity.html?id=langgraph">LangGraph</a></strong></td>
-              <td>agent-framework</td>
-              <td><span class="badge badge-breakout">breakout</span></td>
-              <td>+2.14</td>
-              <td>+0.82</td>
-              <td>-1.32</td>
-              <td>142,500</td>
-              <td><a href="entity.html?id=langgraph">View Profile</a></td>
-            </tr>
-            <tr>
-              <td><strong><a href="entity.html?id=qdrant-client">Qdrant Client</a></strong></td>
-              <td>vector-store</td>
-              <td><span class="badge badge-use_ahead">use_ahead</span></td>
-              <td>+1.85</td>
-              <td>+0.41</td>
-              <td>-1.44</td>
-              <td>215,000</td>
-              <td><a href="entity.html?id=qdrant-client">View Profile</a></td>
-            </tr>
-            <tr>
-              <td><strong><a href="entity.html?id=chromadb">ChromaDB</a></strong></td>
-              <td>vector-store</td>
-              <td><span class="badge badge-mainstream">mainstream</span></td>
-              <td>+1.42</td>
-              <td>+1.35</td>
-              <td>-0.07</td>
-              <td>380,000</td>
-              <td><a href="entity.html?id=chromadb">View Profile</a></td>
-            </tr>
-            <tr>
-              <td><strong><a href="entity.html?id=mcp-server-sqlite">MCP SQLite Server</a></strong></td>
-              <td>mcp-server</td>
-              <td><span class="badge badge-breakout">breakout</span></td>
-              <td>+2.45</td>
-              <td>+0.60</td>
-              <td>-1.85</td>
-              <td>34,200</td>
-              <td><a href="entity.html?id=mcp-server-sqlite">View Profile</a></td>
-            </tr>
-            <tr>
-              <td><strong><a href="entity.html?id=pydantic-ai">PydanticAI</a></strong></td>
-              <td>agent-framework</td>
-              <td><span class="badge badge-emerging">emerging</span></td>
-              <td>+1.12</td>
-              <td>+1.68</td>
-              <td>+0.56</td>
-              <td>48,900</td>
-              <td><a href="entity.html?id=pydantic-ai">View Profile</a></td>
+              <td colspan="8" style="text-align: center; padding: 32px; color: var(--text-muted);">
+                Initializing leaderboard...
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
+
+      <div class="table-pagination-bar">
+        <span id="table-page-label" class="table-meta-group">Page 1 of 12</span>
+        <div class="pagination-btn-group">
+          <button type="button" id="table-prev-btn" class="btn-page" disabled>Previous</button>
+          <button type="button" id="table-next-btn" class="btn-page">Next</button>
+        </div>
+      </div>
     </section>
 
-    <section class="card-grid">
+    <!-- Section 6: Methodology & Backtest Verification Cards -->
+    <section class="card-grid" aria-label="Methodology and Verification">
       <div class="card">
-        <h2>What is Divergence (D)?</h2>
+        <h2>Divergence Metric (D)</h2>
         <p>
-          \(D = \text{attention\_z} - \text{adoption\_z}\). A negative divergence indicates adoption outpaces awareness (under-the-radar utility), while positive divergence flags high buzz relative to installed usage.
+          Calculated as the difference between attention z-score and adoption z-score. Negative divergence indicates verified package installations lead social attention, identifying production tools prior to widespread industry discussion.
         </p>
-        <p style="margin-top: 12px;"><a href="methodology.html">Read the full formula &rarr;</a></p>
+        <p style="margin-top: 14px;"><a href="methodology.html">Review mathematical derivation &rarr;</a></p>
       </div>
 
       <div class="card">
         <h2>Walk-Forward Backtest</h2>
         <p>
-          Tested on 7,248 historical lifecycle calls across 104 weeks with zero lookahead bias. Breakout signals achieve a <strong>68.4% hit rate</strong> in predicting sustained adoption.
+          Evaluated across 7,248 historical lifecycle calls over 104 calendar weeks. Breakout signals achieve a 68.4% hit rate in predicting persistent downstream package adoption over the subsequent quarter.
         </p>
-        <p style="margin-top: 12px;"><a href="backtest.html">Inspect the proof &rarr;</a></p>
+        <p style="margin-top: 14px;"><a href="backtest.html">Inspect cryptographic ledger &rarr;</a></p>
       </div>
 
       <div class="card">
-        <h2>Model Context Protocol (MCP)</h2>
+        <h2>Model Context Protocol</h2>
         <p>
-          Connect AI agents directly to our read-only MCP server. Access <code>footfall_compare</code>, <code>footfall_trend</code>, and <code>footfall_find_rising</code> in real time.
+          Integrate live analytics directly into your autonomous AI coding agents. Query tool comparisons, trend velocity, and rising libraries via read-only tools using stdio or SSE transport.
         </p>
-        <p style="margin-top: 12px;"><a href="data.html">Get connection details &rarr;</a></p>
+        <p style="margin-top: 14px;"><a href="data.html">View integration parameters &rarr;</a></p>
       </div>
     </section>
   </main>
 
   <footer>
     <div class="footer-container">
-      <div>
-        <p><strong>Footfall</strong> &mdash; Public AI developer tool adoption analytics.</p>
-        <p>Code under Apache-2.0. Derived datasets under CC BY 4.0.</p>
+      <div class="footer-brand">
+        <h4>Footfall Adoption Platform</h4>
+        <p>
+          Empirical measurements separating verified developer adoption from social hype across 180 curated developer tools. Maintained with zero lookahead leakage and deterministic verification.
+        </p>
+        <p>
+          Source code licensed under Apache-2.0. Derived metrics licensed under Creative Commons Attribution 4.0 International.
+        </p>
       </div>
       <ul class="footer-links">
         <li><a href="methodology.html">Methodology</a></li>
-        <li><a href="backtest.html">Backtest</a></li>
-        <li><a href="data.html">Data Exports</a></li>
-        <li><a href="about.html#disputes">Disputes</a></li>
-        <li><a href="about.html#privacy">Privacy Policy</a></li>
+        <li><a href="backtest.html">Backtest Proof</a></li>
+        <li><a href="data.html">Data Bundles</a></li>
+        <li><a href="feeds/rss.xml">RSS Feed</a></li>
+        <li><a href="feeds/atom.xml">Atom Feed</a></li>
+        <li><a href="about.html#disputes">Dispute Policy</a></li>
+        <li><a href="about.html#privacy">Privacy Protocol</a></li>
       </ul>
     </div>
+    <div class="footer-licence-line">
+      Zero tracking pixels, zero analytics scripts, and zero third-party fonts. Content Security Policy enforced with self-origin isolation.
+    </div>
   </footer>
+
+  <script src="app.js"></script>
 </body>
 </html>

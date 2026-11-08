@@ -147,5 +147,54 @@
       </ul>
     </div>
   </footer>
+  <script>
+    (async function() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+      if (!id) return;
+
+      try {
+        const res = await fetch('data/entities-summary.json');
+        if (!res.ok) return;
+        const entities = await res.json();
+        const entity = entities.find(e => e.id === id || e.name.toLowerCase() === id.toLowerCase());
+        if (!entity) return;
+
+        document.title = `Footfall — ${entity.name} Profile`;
+        const nameEl = document.getElementById('entity-name');
+        if (nameEl) nameEl.textContent = entity.name;
+
+        const catEl = document.getElementById('entity-category');
+        if (catEl) catEl.innerHTML = `Category: <strong>${entity.category}</strong> &bull; Tracked ID: <code>${entity.id}</code>`;
+
+        const badgeEl = document.getElementById('entity-phase-badge');
+        if (badgeEl) {
+          const cleanPhase = String(entity.phase || '').toLowerCase().replace(/[^a-z0-9_-]/g, '');
+          badgeEl.innerHTML = `<span class="badge badge-${cleanPhase}" style="font-size: 1rem; padding: 6px 16px;">${entity.phase}</span>`;
+        }
+
+        const adoptEl = document.getElementById('stat-adoption');
+        if (adoptEl) {
+          const z = Number(entity.adoption_z) || 0;
+          adoptEl.textContent = (z > 0 ? '+' : '') + z.toFixed(2);
+        }
+
+        const attEl = document.getElementById('stat-attention');
+        if (attEl) {
+          const z = Number(entity.attention_z) || 0;
+          attEl.textContent = (z > 0 ? '+' : '') + z.toFixed(2);
+        }
+
+        const divEl = document.getElementById('stat-divergence');
+        if (divEl) {
+          const d = Number(entity.divergence) || 0;
+          divEl.textContent = (d > 0 ? '+' : '') + d.toFixed(2);
+          divEl.className = d < 0 ? 'text-positive' : 'text-warning';
+        }
+      } catch (e) {
+        console.warn('Could not load entity data:', e);
+      }
+    })();
+  </script>
 </body>
 </html>
